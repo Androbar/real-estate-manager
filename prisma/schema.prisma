@@ -1,25 +1,89 @@
 generator client {
     provider = "prisma-client-js"
-    output   = "./generated/client"
 }
 
 datasource db {
     provider = "postgresql"
-    url      = env("DATABASE_URL")
+    url      = env("POSTGRES_DATABASE")
 }
 
 model User {
-    id         Int        @id @default(autoincrement())
-    email      String     @unique
-    name       String?
+    id    Int     @id @default(autoincrement())
+    email String  @unique
+    name  String?
+
     properties Property[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model Property {
-    id      Int    @id @default(autoincrement())
-    name    String
-    address String
-    type    String
-    ownerId Int
-    owner   User   @relation(fields: [ownerId], references: [id])
+    id            Int    @id @default(autoincrement())
+    name          String
+    description   String
+    address       String
+    location      String // format -> longitude:latitude
+    operationType String
+    price         Float
+    expenses      Float
+    currency      String // usd dollars for now
+    type          String // apartment, house, office, etc
+
+    // Attributes
+    areaTotal      Float
+    areaCovered    Float
+    roomsTotal     Int // ambientes
+    bathrooms      Int
+    rooms          Int
+    yearsBuilt     Int
+    propertyFacing String // frente contrafrente
+    orientation    String
+    carport        Int
+    ownerId        Int
+
+    propertyImages PropertyImages[]
+    owner          User             @relation(fields: [ownerId], references: [id])
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
+
+model Image {
+    id       Int     @id @default(autoincrement())
+    filename String
+    url      String  @unique
+    caption  String?
+
+    propertyImages PropertyImages[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model PropertyImages {
+    propertyId Int
+    imageId    Int
+    order      Int
+
+    property Property @relation(fields: [propertyId], references: [id])
+    image    Image    @relation(fields: [imageId], references: [id])
+
+    @@id([propertyId, imageId])
+}
+
+// id
+// name
+// description
+// address
+// location                - [longitude:latitude]
+// operation_type          - rent, sell
+// price
+// expenses
+// currency
+
+// image_gallery_id
+// property_attributes_id  - m2 totales, m2 cubiertos, n ambientes, n baños, n dormitorios, n años,
+//                           frente o contrafrente, orientacion, cochera, 
+// property_type_id        - apartment, house, office, terrain
+// publisher_id            - el que lo publica
