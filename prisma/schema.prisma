@@ -15,38 +15,40 @@ model User {
     properties Property[]
 
     createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    // updatedAt DateTime @updatedAt
 }
 
 model Property {
-    id            Int    @id @default(autoincrement())
+    id            Int     @id @default(autoincrement())
     name          String
+    slug          String  @unique
     description   String
     address       String
-    location      String // format -> longitude:latitude
+    location      String? // format -> longitude:latitude
+    city          String
     operationType String
-    price         Float
-    expenses      Float
-    currency      String // usd dollars for now
+    price         Float?
+    expenses      Float?
+    currency      String? // usd dollars for now
     type          String // apartment, house, office, etc
 
     // Attributes
-    areaTotal      Float
-    areaCovered    Float
-    roomsTotal     Int // ambientes
-    bathrooms      Int
-    rooms          Int
-    yearsBuilt     Int
-    propertyFacing String // frente contrafrente
-    orientation    String
-    carport        Int
+    areaTotal      Float?
+    areaCovered    Float?
+    roomsTotal     Int? // ambientes
+    bathrooms      Int?
+    rooms          Int?
+    yearsBuilt     Int?
+    propertyFacing String? // frente contrafrente
+    orientation    String?
+    carport        Int?
     ownerId        Int
 
     propertyImages PropertyImages[]
     owner          User             @relation(fields: [ownerId], references: [id])
 
     createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    // updatedAt DateTime @updatedAt
 }
 
 model Image {
@@ -58,7 +60,7 @@ model Image {
     propertyImages PropertyImages[]
 
     createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    // updatedAt DateTime @updatedAt
 }
 
 model PropertyImages {

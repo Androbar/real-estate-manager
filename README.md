@@ -16,6 +16,7 @@ TRPC?
 - [ ] Add property list page
 - [ ] Add property map with open street maps and marker, do cool markers
 - [ ] Add upload/edit/delete(soft) property page
+- [ ] Add menu on layout
 - [ ] Define User prisma model
 - [ ] Add users login (with third party) - store in context
 - [ ] Add user dashboard for user properties management
