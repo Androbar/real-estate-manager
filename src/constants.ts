@@ -1,5 +1,33 @@
 export const MAX_WIDTH = '1280px';
 
+export const PROPERTY_TYPES = {
+  HOUSE: {
+    label: 'House',
+    icon: 'house',
+    color: 'blue.500',
+  },
+  APARTMENT: {
+    label: 'Apartment',
+    icon: 'apartment',
+    color: 'green.500',
+  },
+  OFFICE: {
+    label: 'Office',
+    icon: 'office',
+    color: 'yellow.500',
+  },
+  WAREHOUSE: {
+    label: 'Warehouse',
+    icon: 'warehouse',
+    color: 'purple.500',
+  },
+  LAND: {
+    label: 'Land',
+    icon: 'land',
+    color: 'gray.500',
+  }
+} as const;
+
 export const PROPERTY_IMAGES = [
   {
     id: 1,

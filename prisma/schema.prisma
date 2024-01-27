@@ -7,6 +7,19 @@ datasource db {
     url      = env("POSTGRES_DATABASE")
 }
 
+enum OperationType {
+    RENT
+    SALE
+}
+
+enum PropertyType {
+    APARTMENT
+    HOUSE
+    OFFICE
+    WAREHOUSE
+    LAND
+}
+
 model User {
     id    Int     @id @default(autoincrement())
     email String  @unique
@@ -19,18 +32,18 @@ model User {
 }
 
 model Property {
-    id            Int     @id @default(autoincrement())
+    id            Int           @id @default(autoincrement())
     name          String
-    slug          String  @unique
+    slug          String        @unique
     description   String
     address       String
     location      String? // format -> longitude:latitude
     city          String
-    operationType String
+    operationType OperationType // rent, sale, etc
     price         Float?
     expenses      Float?
     currency      String? // usd dollars for now
-    type          String // apartment, house, office, etc
+    type          PropertyType // apartment, house, office, etc
 
     // Attributes
     areaTotal      Float?
