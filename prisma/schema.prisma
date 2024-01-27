@@ -56,9 +56,54 @@ model Property {
     orientation    String?
     carport        Int?
     ownerId        Int
+    // Other attributes
+    // GENERAL
+    availableAsOf             String?
+    constructionYear          Int?
+    buildingCondition         String?
+    streetFrontageWidth       Int?    
+    numberOfFrontages         Int?
+    coveredParkingSpaces      Int?
+    outdoorParkingSpaces      Int?
+    surroundingsType          String?
+    // INTERIOR
+    livingArea                Int?
+    livingRoomSurface         Int?
+    kitchenType               String?
+    kitchenSurface            Int?
+    bedrooms                  Int?
+    bedroom1Surface           Int?
+    bedroom2Surface           Int?
+    bedroom3Surface           Int?
+    bedroom4Surface           Int?
+    bedroom5Surface           Int?
+    showerRooms               Int?
+    toilets                   Int?
+    officeSurface             Int?
+    office                    Boolean?
+    professionalSpaceSurface  Int?
+    attic                     Boolean?
+    furnished                 Boolean?
+    heatingType               String?
+    // EXTERIOR
+    surfaceOfThePlot          Int?
+    connectionToSewerNetwork  String?
+    gasWaterElectricity       Boolean?
+    gardenSurface             Int?
+    terraceSurface            Int?
+    // FACILITIES
+    elevator                  Boolean?
+    accessibleForDisabled     Boolean?
+    tvCable                   Boolean?
+    visioPhone                Boolean?
+    swimmingPool              Boolean?
+    // TOWN PLANNING AND RISKS
+    totalGroundFloorBuildable Int?
+    floodZoneType             String?
 
     propertyImages PropertyImages[]
     owner          User             @relation(fields: [ownerId], references: [id])
+    contacts       Contact[]
 
     createdAt DateTime @default(now())
     // updatedAt DateTime @updatedAt
@@ -87,18 +132,15 @@ model PropertyImages {
     @@id([propertyId, imageId])
 }
 
-// id
-// name
-// description
-// address
-// location                - [longitude:latitude]
-// operation_type          - rent, sell
-// price
-// expenses
-// currency
+model Contact {
+    id         Int      @id @default(autoincrement())
+    name       String
+    email      String?
+    phone      String?
+    message    String
+    propertyId Int
+    property   Property @relation(fields: [propertyId], references: [id])
 
-// image_gallery_id
-// property_attributes_id  - m2 totales, m2 cubiertos, n ambientes, n baños, n dormitorios, n años,
-//                           frente o contrafrente, orientacion, cochera, 
-// property_type_id        - apartment, house, office, terrain
-// publisher_id            - el que lo publica
+    createdAt DateTime @default(now())
+    // updatedAt DateTime @updatedAt
+}

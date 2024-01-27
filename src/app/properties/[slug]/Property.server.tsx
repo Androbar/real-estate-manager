@@ -4,7 +4,7 @@ import { PropertyImages } from "@/components/PropertyImages";
 // import PropertyMap from "@/components/PropertyMap";
 import { MAX_WIDTH, PROPERTY_IMAGES, PROPERTY_TYPES } from "@/constants";
 import prisma from "@/lib/prismaClient";
-import { Box, Container, Divider, Grid, GridItem, HStack, Heading, Text, VStack } from "@chakra-ui/react";
+import { Box, Container, Divider, Grid, GridItem, HStack, Heading, Tab, TabList, TabPanel, TabPanels, Tabs, Text, VStack } from "@chakra-ui/react";
 import { BiSolidCarGarage } from "react-icons/bi";
 import { CiCalendar } from "react-icons/ci";
 import { FaShower } from "react-icons/fa";
@@ -13,6 +13,7 @@ import { MdOutlineBed, MdOutlineMeetingRoom } from "react-icons/md";
 import { PiHouse } from "react-icons/pi";
 import { RxDimensions } from "react-icons/rx";
 import dynamic from 'next/dynamic';
+import { PropertyFullAttributes } from "@/components/PropertyFullAttributes";
 
 const PropertyMap = dynamic(() => import('@/components/PropertyMap'), { ssr: false });
 
@@ -64,12 +65,28 @@ const PropertyServerComponent = async ({ slug }: { slug: string }) => {
             <Divider my={5} />
             <PropertyMap latitude={latitude} longitude={longitude} />
             <Divider my={5} />
-            <Text>Tabs con diferentes categorias con informacion</Text>
-            <Text>Overview, precio, detalles, mapa, requisitos</Text>
+            <Tabs isFitted variant='enclosed'>
+              <TabList mb='1em'>
+                <Tab>Overview</Tab>
+                <Tab>Price</Tab>
+                <Tab>Requirements</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  <PropertyFullAttributes property={property} />
+                </TabPanel>
+                <TabPanel>
+                  <Text>two!</Text>
+                </TabPanel>
+                <TabPanel>
+                  <Text>two!</Text>
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
           </Box>
         </GridItem>
         <GridItem colSpan={4}>
-          <ContactForm />
+          <ContactForm propertyId={property.id} />
         </GridItem>
 
       </Grid>
