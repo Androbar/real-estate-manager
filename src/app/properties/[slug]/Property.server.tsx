@@ -1,5 +1,6 @@
 // src/app/properties/[slug]/Property.server.tsx
 import { ContactForm } from "@/components/ContactForm";
+import { ImageGallery } from "@/components/ImageGallery";
 import { PropertyImages } from "@/components/PropertyImages";
 import { MAX_WIDTH, PROPERTY_IMAGES } from "@/constants";
 import prisma from "@/lib/prismaClient";
