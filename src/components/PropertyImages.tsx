@@ -30,8 +30,8 @@ export const PropertyImages = ({ images }: {
           </Box>
         </GridItem>
         {shownImages.map(image => (
-          <GridItem colSpan={1} rowSpan={1}>
-            <Box key={image.id} position="relative" boxSize="100%" overflow={'hidden'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+          <GridItem colSpan={1} rowSpan={1} key={image.id}>
+            <Box position="relative" boxSize="100%" overflow={'hidden'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
               <Image alt={image.caption} src={image.url} objectFit={'cover'} />
             </Box>
           </GridItem>

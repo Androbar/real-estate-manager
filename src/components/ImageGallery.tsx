@@ -12,15 +12,15 @@ export const ImageGallery = ({
   onClose,
   transitionDuration = 500 // default transition duration in milliseconds
 }: ImageGalleryProps) => {
-  const [ currentImageIdx, setCurrentImageIdx ] = useState<number>(0)
-  const [ isTransitioning, setIsTransitioning ] = useState<boolean>(false);
+  const [currentImageIdx, setCurrentImageIdx] = useState<number>(0)
+  const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
 
   const changeImage = (newIdx: number) => {
     setIsTransitioning(true); // Start fading out
-  
+
     setTimeout(() => {
       setCurrentImageIdx(newIdx); // Change the image after half of the transition duration
-  
+
       setTimeout(() => {
         setIsTransitioning(false); // Start fading in
       }, transitionDuration / 2);
@@ -37,16 +37,15 @@ export const ImageGallery = ({
     const prevIdx = currentImageIdx - 1 < 0 ? images.length - 1 : currentImageIdx - 1;
     changeImage(prevIdx);
   };
-  
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} onEsc={onClose} size='full' scrollBehavior="inside">
       <ModalOverlay />
       <ModalContent>
         <Box position={'relative'} maxH={'100%'} w={'100%'} overflow={'hidden'}>
           {images.map((image, idx) => (
-            <Box position="relative" boxSize="100%" overflow={'hidden'} display={'grid'}>
+            <Box position="relative" key={image.id} boxSize="100%" overflow={'hidden'} display={'grid'}>
               <Image
-                key={image.id}
                 alt={image.caption}
                 src={image.url}
                 objectFit={'cover'}
