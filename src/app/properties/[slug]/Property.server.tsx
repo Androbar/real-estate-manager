@@ -1,6 +1,7 @@
 // src/app/properties/[slug]/Property.server.tsx
 import { ContactForm } from "@/components/ContactForm";
 import { PropertyImages } from "@/components/PropertyImages";
+// import PropertyMap from "@/components/PropertyMap";
 import { MAX_WIDTH, PROPERTY_IMAGES, PROPERTY_TYPES } from "@/constants";
 import prisma from "@/lib/prismaClient";
 import { Box, Container, Divider, Grid, GridItem, HStack, Heading, Text, VStack } from "@chakra-ui/react";
@@ -8,9 +9,12 @@ import { BiSolidCarGarage } from "react-icons/bi";
 import { CiCalendar } from "react-icons/ci";
 import { FaShower } from "react-icons/fa";
 import { LuBuilding } from "react-icons/lu";
-import { MdOutlineAttachMoney, MdOutlineBed, MdOutlineMeetingRoom } from "react-icons/md";
+import { MdOutlineBed, MdOutlineMeetingRoom } from "react-icons/md";
 import { PiHouse } from "react-icons/pi";
 import { RxDimensions } from "react-icons/rx";
+import dynamic from 'next/dynamic';
+
+const PropertyMap = dynamic(() => import('@/components/PropertyMap'), { ssr: false });
 
 const PropertyServerComponent = async ({ slug }: { slug: string }) => {
   const property = await prisma.property.findUnique({
@@ -20,6 +24,9 @@ const PropertyServerComponent = async ({ slug }: { slug: string }) => {
   if (!property) {
     return <div>Property not found</div>;
   }
+  const location = property.location ? property.location.split(',') : null;
+  const latitude = location ? parseFloat(location[0]) : null;
+  const longitude = location ? parseFloat(location[1]) : null;
 
   return (
     <Container maxW={MAX_WIDTH} p={4} m={'0 auto'}>
@@ -27,13 +34,13 @@ const PropertyServerComponent = async ({ slug }: { slug: string }) => {
         <GridItem colSpan={8}>
           <Box w={'100%'}>
             <PropertyImages images={PROPERTY_IMAGES} />
-            <HStack justifyContent={'space-between'}>
+            <HStack justifyContent={'space-between'} alignItems={'stretch'}>
               <VStack gap={0}>
                 <Heading as='h1' mt={5}>{property.name}</Heading>
                 <Text as="span">{property.address}</Text>
               </VStack>
               <VStack gap={0}>
-                <HStack>
+                <HStack alignItems={'space-between'}>
                   {renderPropertyTypeIcon(property.type)}
                   <Text>{PROPERTY_TYPES[property.type].label}</Text>
                 </HStack>
@@ -54,7 +61,9 @@ const PropertyServerComponent = async ({ slug }: { slug: string }) => {
             <Divider my={5} />
             <Heading size={'md'} mb={3}>About this property</Heading>
             <Text>{property.description}</Text>
-            <Text>Address: {property.address}</Text>
+            <Divider my={5} />
+            <PropertyMap latitude={latitude} longitude={longitude} />
+            <Divider my={5} />
             <Text>Tabs con diferentes categorias con informacion</Text>
             <Text>Overview, precio, detalles, mapa, requisitos</Text>
           </Box>

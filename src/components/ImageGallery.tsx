@@ -1,7 +1,7 @@
 'use client'
 
 import { Box, Modal, ModalContent, ModalOverlay } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Image } from '@chakra-ui/react'
 import { ArrowBackIcon, ArrowForwardIcon, CloseIcon } from "@chakra-ui/icons";
 
@@ -10,10 +10,26 @@ export const ImageGallery = ({
   images,
   isOpen,
   onClose,
-  transitionDuration = 500 // default transition duration in milliseconds
+  transitionDuration = 300 // default transition duration in milliseconds
 }: ImageGalleryProps) => {
   const [currentImageIdx, setCurrentImageIdx] = useState<number>(0)
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "ArrowRight") {
+        handleClickNext();
+      } else if (event.key === "ArrowLeft") {
+        handleClickPrevious();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [currentImageIdx]);
 
   const changeImage = (newIdx: number) => {
     setIsTransitioning(true); // Start fading out
