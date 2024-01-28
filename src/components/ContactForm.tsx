@@ -1,23 +1,47 @@
 'use client'
 
-import { Box, Button, Card, CardBody, CardHeader, FormControl, FormErrorMessage, FormLabel, Heading, Input, Textarea } from "@chakra-ui/react"
+import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Button, Card, CardBody, CardHeader, CloseButton, FormControl, FormErrorMessage, FormLabel, Heading, Input, Spinner, Textarea, useDisclosure } from "@chakra-ui/react"
 import { useForm } from "react-hook-form";
-import prisma from "@/lib/prismaClient";
+import { useContactForm } from "@/hooks/useContactForm";
+import { useEffect, useState } from "react";
 
-export const ContactForm = ({propertyId}: {propertyId: number}) => {
-  const { register, handleSubmit, formState: { errors } } = useForm<IContactForm>();
+const ALERT_STATUS = {
+  success: {
+    status: "success",
+    title: 'Success!',
+    description: 'Your message has been sent successfully.',
+  },
+  error: {
+    status: "error",
+    title: 'Error!',
+    description: 'Your message has not been sent.',
+  },
+} as const
+export const ContactForm = ({ propertyId }: { propertyId: number }) => {
+  const [alert, setAlert] = useState<"success" | "error">("success")
+  const { register, handleSubmit, reset: resetForm, formState: { errors } } = useForm<IContactForm>();
+  const mutation = useContactForm();
+
+  const {
+    isOpen: isVisible,
+    onClose,
+    onOpen,
+  } = useDisclosure()
+
+  useEffect (() => {
+    mutation.isSuccess && setAlert("success");
+    mutation.isError && setAlert("error");
+  }, [mutation.isSuccess, mutation.isError])
 
   const onSubmit = async (data: IContactForm) => {
-    // have to move this to server component or api route,or connect trpc :)
-    await prisma.contact.create({
-      data: {
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
-        message: data.message,
-        propertyId: propertyId,
-      }
-    })
+    await mutation.mutateAsync({ ...data, propertyId });
+    resetForm();
+    onOpen();
+  }
+
+  const handleClose = () => {
+    onClose();
+    mutation.reset();
   }
 
   return (
@@ -29,7 +53,7 @@ export const ContactForm = ({propertyId}: {propertyId: number}) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormControl isInvalid={!!errors.name}>
             <FormLabel htmlFor="name">Name</FormLabel>
-            <Input id="name" placeholder="Name" {...register('name', { required: 'Name is required' })} />
+            <Input id="name" disabled={mutation.isLoading} placeholder="Name" {...register('name', { required: 'Name is required' })} />
             <FormErrorMessage>
               {errors.name && errors.name.message}
             </FormErrorMessage>
@@ -37,7 +61,7 @@ export const ContactForm = ({propertyId}: {propertyId: number}) => {
 
           <FormControl isInvalid={!!errors.email}>
             <FormLabel htmlFor="email">Email</FormLabel>
-            <Input id="email" placeholder="Email" {...register('email', { required: 'Email is required' })} />
+            <Input id="email" disabled={mutation.isLoading} placeholder="Email" {...register('email', { required: 'Email is required' })} />
             <FormErrorMessage>
               {errors.email && errors.email.message}
             </FormErrorMessage>
@@ -45,7 +69,7 @@ export const ContactForm = ({propertyId}: {propertyId: number}) => {
 
           <FormControl isInvalid={!!errors.phone}>
             <FormLabel htmlFor="phone">Phone</FormLabel>
-            <Input id="phone" placeholder="Phone (optional)" {...register('phone')} />
+            <Input id="phone" disabled={mutation.isLoading} placeholder="Phone (optional)" {...register('phone')} />
             <FormErrorMessage>
               {errors.phone && errors.phone.message}
             </FormErrorMessage>
@@ -53,14 +77,31 @@ export const ContactForm = ({propertyId}: {propertyId: number}) => {
 
           <FormControl isInvalid={!!errors.message}>
             <FormLabel htmlFor="message">Message</FormLabel>
-            <Textarea id="message" placeholder="Message" {...register('message', { required: 'Message is required' })} />
+            <Textarea id="message" disabled={mutation.isLoading} placeholder="Message" {...register('message', { required: 'Message is required' })} />
             <FormErrorMessage>
               {errors.message && errors.message.message}
             </FormErrorMessage>
           </FormControl>
-
-          <Button mt={4} colorScheme="blue" type="submit">
-            Submit
+          {isVisible && (
+            <Alert status={ALERT_STATUS[alert].status} mt={4}>
+              <AlertIcon />
+              <Box>
+                <AlertTitle>{ALERT_STATUS[alert].title}</AlertTitle>
+                <AlertDescription>
+                  {ALERT_STATUS[alert].description}
+                </AlertDescription>
+              </Box>
+              <CloseButton
+                alignSelf='flex-start'
+                position='relative'
+                right={-1}
+                top={-1}
+                onClick={handleClose}
+              />
+            </Alert>
+          )}
+          <Button mt={4} colorScheme="blue" type="submit" w={'150px'} isDisabled={mutation.isLoading}>
+            {mutation.isLoading ? <Spinner /> : "Submit"}
           </Button>
         </form>
 
@@ -69,7 +110,8 @@ export const ContactForm = ({propertyId}: {propertyId: number}) => {
   )
 }
 
-interface IContactForm {
+
+export interface IContactForm {
   name: string;
   email: string;
   phone?: string;
