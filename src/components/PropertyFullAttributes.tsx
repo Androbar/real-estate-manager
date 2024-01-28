@@ -1,4 +1,4 @@
-import { Box, Heading, Text } from "@chakra-ui/react";
+import { Box, Divider, Heading, Text } from "@chakra-ui/react";
 import { Property } from "@prisma/client";
 
 export const PropertyFullAttributes = ({ property }: { property: Property }) => {
@@ -13,6 +13,7 @@ export const PropertyFullAttributes = ({ property }: { property: Property }) => 
       <Text>Covered parking spaces: {property.coveredParkingSpaces}</Text>
       <Text>Outdoor parking spaces: {property.outdoorParkingSpaces}</Text>
       <Text>Surroundings type: {property.surroundingsType}</Text>
+      <Divider my={4}/>
       <Heading size={'sm'}>INTERIOR</Heading>
       <Text>Living area: {property.livingArea}</Text>
       <Text>Living room surface: {property.livingRoomSurface}</Text>
@@ -33,18 +34,21 @@ export const PropertyFullAttributes = ({ property }: { property: Property }) => 
       <Text>Attic: {property.attic ? "Yes" : "No"}</Text>
       <Text>Furnished: {property.furnished ? "Yes" : "No"}</Text>
       <Text>Heating type: {property.heatingType}</Text>
+      <Divider my={4}/>
       <Heading size={'sm'}>EXTERIOR</Heading>
       <Text>Surface of the plot: {property.surfaceOfThePlot}</Text>
       <Text>Connection to sewer network: {property.connectionToSewerNetwork}</Text>
       <Text>Gas, water & electricity: {property.gasWaterElectricity ? "Yes" : "No"}</Text>
       <Text>Garden surface: {property.gardenSurface}</Text>
       <Text>Terrace surface: {property.terraceSurface}</Text>
+      <Divider my={4}/>
       <Heading size={'sm'}>FACILITIES</Heading>
       <Text>Elevator: {property.elevator ? "Yes" : "No"}</Text>
       <Text>Accessible for disabled people: {property.accessibleForDisabled ? "Yes" : "No"}</Text>
       <Text>TV cable: {property.tvCable ? "Yes" : "No"}</Text>
       <Text>Visio phone: {property.visioPhone ? "Yes" : "No"}</Text>
       <Text>Swimming pool: {property.swimmingPool ? "Yes" : "No"}</Text>
+      <Divider my={4}/>
       <Heading size={'sm'}>TOWN PLANNING AND RISKS</Heading>
       <Text>Total ground floor buildable: {property.totalGroundFloorBuildable}</Text>
       <Text>Flood zone type: {property.floodZoneType}</Text>

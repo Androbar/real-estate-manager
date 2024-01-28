@@ -14,6 +14,7 @@ import { PiHouse } from "react-icons/pi";
 import { RxDimensions } from "react-icons/rx";
 import dynamic from 'next/dynamic';
 import { PropertyFullAttributes } from "@/components/PropertyFullAttributes";
+import { PropertyPriceInformation } from "@/components/PropertyPriceInformation";
 
 const PropertyMap = dynamic(() => import('@/components/PropertyMap'), { ssr: false });
 
@@ -40,13 +41,13 @@ const PropertyServerComponent = async ({ slug }: { slug: string }) => {
                 <Heading as='h1' mt={5}>{property.name}</Heading>
                 <Text as="span">{property.address}</Text>
               </VStack>
-              <VStack gap={0}>
-                <HStack alignItems={'space-between'}>
+              <VStack gap={0} alignItems={'center'} justifyContent={'center'} gridGap={1}>
+                <HStack alignItems={'center'}>
                   {renderPropertyTypeIcon(property.type)}
                   <Text>{PROPERTY_TYPES[property.type].label}</Text>
                 </HStack>
                 <HStack>
-                  <Text>{property.operationType}</Text>
+                  <Text>For {property.operationType}</Text>
                 </HStack>
               </VStack>
             </HStack>
@@ -76,10 +77,10 @@ const PropertyServerComponent = async ({ slug }: { slug: string }) => {
                   <PropertyFullAttributes property={property} />
                 </TabPanel>
                 <TabPanel>
-                  <Text>two!</Text>
+                  <PropertyPriceInformation property={property} />
                 </TabPanel>
                 <TabPanel>
-                  <Text>two!</Text>
+                  <Text>Other requirements list</Text>
                 </TabPanel>
               </TabPanels>
             </Tabs>
@@ -101,8 +102,8 @@ export default PropertyServerComponent;
 const renderPropertyTypeIcon = (type: 'HOUSE' | 'APARTMENT' | 'OFFICE' | 'WAREHOUSE' | 'LAND') => {
   switch (type) {
     case 'HOUSE':
-      return <PiHouse />;
+      return <PiHouse size={'25px'}/>;
     case 'APARTMENT':
-      return <LuBuilding />;
+      return <LuBuilding size={'25px'}/>;
   }
 }
