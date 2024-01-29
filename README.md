@@ -11,10 +11,10 @@ TRPC?
 
 ### TODO:
 - [ x ] Define property prisma model
-- [ ] Add property detail page
-- [ ] Add properties seed to prisma
-- [ ] Add property list page with filters, sort by and map
-      https://housinganywhere.com/s/Brussels--Belgium
+- [ x ] Add property detail page
+- [ x ] Add properties seed to prisma - add 10 - ask chat gpt
+- [ ] Add property list page with filters, sort by and map - https://housinganywhere.com/s/Brussels--Belgium
+
 - [ ] Add property map with open street maps and marker, do cool markers
 - [ ] Add upload/edit/delete(soft) property page
 - [ ] Add menu on layout
