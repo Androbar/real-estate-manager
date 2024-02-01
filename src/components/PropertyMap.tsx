@@ -1,12 +1,9 @@
 'use client'
 
 import { Box, Heading, Popover } from "@chakra-ui/react";
-import dynamic from 'next/dynamic';
 
 import { MapContainer, Marker, Popup, TileLayer, Tooltip } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
-// import "leaflet-defaulticon-compatibility"
-// import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css"
 
 
 export default function PropertyMap({ latitude, longitude }: { latitude: number | null, longitude: number | null }) {
@@ -21,7 +18,6 @@ export default function PropertyMap({ latitude, longitude }: { latitude: number 
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <Marker position={[latitude, longitude]}>
-            <Popup>coso</Popup>
           </Marker>
         </MapContainer>
       </Box>

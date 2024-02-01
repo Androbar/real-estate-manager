@@ -1,7 +1,5 @@
-// src/app/properties/[slug]/Property.server.tsx
 import { ContactForm } from "@/components/ContactForm";
 import { PropertyImages } from "@/components/PropertyImages";
-// import PropertyMap from "@/components/PropertyMap";
 import { MAX_WIDTH, PROPERTY_IMAGES, PROPERTY_TYPES } from "@/constants";
 import prisma from "@/lib/prismaClient";
 import { Box, Container, Divider, Grid, GridItem, HStack, Heading, Tab, TabList, TabPanel, TabPanels, Tabs, Text, VStack } from "@chakra-ui/react";

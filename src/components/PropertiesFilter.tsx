@@ -1,20 +1,25 @@
 import { ChangeEvent, Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
-import { Box, Card, CardBody, CardHeader, FormControl, FormLabel, Heading, Input, RangeSlider, RangeSliderFilledTrack, RangeSliderThumb, RangeSliderTrack } from '@chakra-ui/react';
-import { FilterParams } from '@/app/properties/page';
+import { Box, Card, CardBody, Text, CardHeader, FormControl, FormLabel, Heading, Input, RangeSlider, RangeSliderFilledTrack, RangeSliderThumb, RangeSliderTrack } from '@chakra-ui/react';
 import { debounce } from 'lodash';
 import { Select } from 'chakra-react-select';
+import { formatNumber } from '@/utils/utils';
+import { FilterParams } from './client/Properties.client';
 
 export type PropertiesFilterProps = {
   filterParams: FilterParams;
   setFilterParams: Dispatch<SetStateAction<FilterParams>>;
+  maxPrice?: number;
+  maxSize?: number;
 }
 
 const OPERATION_TYPES_OPTIONS = [
+  { value: undefined, label: 'All Types' },
   { value: 'SALE', label: 'Sale' },
   { value: 'RENT', label: 'Rent' },
 ] as const;
 
 const PROPERTY_TYPES_OPTIONS = [
+  { value: undefined, label: 'All Types' },
   { value: 'HOUSE', label: 'House' },
   { value: 'APARTMENT', label: 'Apartment' },
   { value: 'OFFICE', label: 'Office' },
@@ -27,9 +32,14 @@ export type SelectOption = {
   label: string | undefined;
 }
 
-export const PropertiesFilter = ({ filterParams, setFilterParams }: PropertiesFilterProps) => {
-  const [priceRange, setPriceRange] = useState([0, 100000]);
-  const [sizeRange, setSizeRange] = useState([0, 1000]);
+export const PropertiesFilter = ({
+  filterParams,
+  setFilterParams,
+  maxPrice=1000000,
+  maxSize= 1000
+}: PropertiesFilterProps) => {
+  const [priceRange, setPriceRange] = useState([0, maxPrice]);
+  const [sizeRange, setSizeRange] = useState([0, maxSize]);
 
   const handleFilterChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -133,37 +143,53 @@ export const PropertiesFilter = ({ filterParams, setFilterParams }: PropertiesFi
           </FormControl>
           <FormControl>
             <FormLabel>Price Range</FormLabel>
-            <RangeSlider
-              aria-label={['min', 'max']}
-              value={priceRange}
-              defaultValue={[0, 300]}
-              min={0}
-              max={300}
-              onChange={handlePriceRangeChange}
-            >
-              <RangeSliderTrack>
-                <RangeSliderFilledTrack />
-              </RangeSliderTrack>
-              <RangeSliderThumb index={0} />
-              <RangeSliderThumb index={1} />
-            </RangeSlider>
+            <Box position={'relative'} pt={5}>
+              <RangeSlider
+                aria-label={['min', 'max']}
+                value={priceRange}
+                defaultValue={[0, maxPrice]}
+                min={0}
+                max={maxPrice}
+                onChange={handlePriceRangeChange}
+              >
+                <RangeSliderTrack>
+                  <RangeSliderFilledTrack />
+                </RangeSliderTrack>
+                <RangeSliderThumb index={0} />
+                <RangeSliderThumb index={1} />
+              </RangeSlider>
+              <Box position={'absolute'} top={0} left={0} height={2}>
+                <Text>$ {formatNumber(priceRange[0])}</Text>
+              </Box>
+              <Box position={'absolute'} top={0} right={0} height={2}>
+                <Text>$ {formatNumber(priceRange[1])}</Text>
+              </Box>
+            </Box>
           </FormControl>
           <FormControl>
             <FormLabel>Size Range</FormLabel>
-            <RangeSlider
-              aria-label={['min', 'max']}
-              value={sizeRange}
-              defaultValue={[0, 1000]}
-              min={0}
-              max={1000}
-              onChange={handleSizeRangeChange}
-            >
-              <RangeSliderTrack>
-                <RangeSliderFilledTrack />
-              </RangeSliderTrack>
-              <RangeSliderThumb index={0} />
-              <RangeSliderThumb index={1} />
-            </RangeSlider>
+            <Box position={'relative'} pt={5}>
+              <RangeSlider
+                aria-label={['min', 'max']}
+                value={sizeRange}
+                defaultValue={[0, maxSize]}
+                min={0}
+                max={maxSize}
+                onChange={handleSizeRangeChange}
+              >
+                <RangeSliderTrack>
+                  <RangeSliderFilledTrack />
+                </RangeSliderTrack>
+                <RangeSliderThumb index={0} />
+                <RangeSliderThumb index={1} />
+              </RangeSlider>
+              <Box position={'absolute'} top={0} left={0} height={2}>
+                <Text>{formatNumber(sizeRange[0], ',', '.', false)}m2</Text>
+              </Box>
+              <Box position={'absolute'} top={0} right={0} height={2}>
+                <Text>{formatNumber(sizeRange[1], ',', '.', false)}m2</Text>
+              </Box>
+            </Box>
           </FormControl>
           <FormControl>
             <FormLabel>Bedrooms</FormLabel>
