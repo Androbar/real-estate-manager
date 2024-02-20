@@ -17,6 +17,12 @@ TRPC?
 
 - [ x ] Add property map with open street maps and marker, do cool markers
 - [ ] Add upload/edit/delete(soft) property page
+      upload
+      edit
+      delete
+      change location to long lat in db
+      Then adapt all images and set them for each property and in the code
+
 - [ ] Add menu on layout
 - [ ] Add footer on layout
 - [ ] Define User prisma model

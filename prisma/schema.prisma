@@ -38,6 +38,8 @@ model Property {
     description   String
     address       String
     location      String? // format -> longitude:latitude
+    latitude      String?
+    longitude     String?
     city          String
     operationType OperationType // rent, sale, etc
     price         Float?
@@ -46,22 +48,22 @@ model Property {
     type          PropertyType // apartment, house, office, etc
 
     // Attributes
-    areaTotal      Float?
-    areaCovered    Float?
-    roomsTotal     Int? // ambientes
-    bathrooms      Int?
-    rooms          Int?
-    yearsBuilt     Int?
-    propertyFacing String? // frente contrafrente
-    orientation    String?
-    carport        Int?
-    ownerId        Int
+    areaTotal                 Float?
+    areaCovered               Float?
+    roomsTotal                Int? // ambientes
+    bathrooms                 Int?
+    rooms                     Int?
+    yearsBuilt                Int?
+    propertyFacing            String? // frente contrafrente
+    orientation               String?
+    carport                   Int?
+    ownerId                   Int
     // Other attributes
     // GENERAL
     availableAsOf             String?
     constructionYear          Int?
     buildingCondition         String?
-    streetFrontageWidth       Int?    
+    streetFrontageWidth       Int?
     numberOfFrontages         Int?
     coveredParkingSpaces      Int?
     outdoorParkingSpaces      Int?
