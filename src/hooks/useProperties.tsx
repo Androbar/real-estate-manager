@@ -1,6 +1,6 @@
 'use client'
 
-import { useQuery, QueryFunctionContext } from 'react-query'
+import { useQuery, type QueryFunctionContext } from 'react-query'
 
 // Define QueryParams as a Record where each key-value pair is a string
 type QueryParams = Record<string, string>
@@ -21,7 +21,7 @@ const fetchProperties = async ({
   if (!response.ok) {
     throw new Error('Network response was not ok')
   }
-  return response.json()
+  return await response.json()
 }
 
 // Define the custom hook

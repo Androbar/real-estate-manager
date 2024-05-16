@@ -1,10 +1,10 @@
 'use client'
 
-import { IContactForm } from '@/components/ContactForm';
-import { useMutation } from 'react-query';
+import { type IContactForm } from '@/components/ContactForm'
+import { useMutation } from 'react-query'
 
 export type ContactFormData = IContactForm & {
-  propertyId: number;
+  propertyId: number
 }
 
 export const useContactForm = () => {
@@ -15,12 +15,12 @@ export const useContactForm = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(formData),
-    });
+    })
 
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error('Network response was not ok')
     }
 
-    return response.json();
-  });
-};
+    return await response.json()
+  })
+}

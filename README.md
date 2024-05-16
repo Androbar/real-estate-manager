@@ -17,10 +17,10 @@ TRPC?
 
 - [ x ] Add property map with open street maps and marker, do cool markers
 - [ ] Add upload/edit/delete(soft) property page
-      upload
-      edit
-      delete
-      change location to long lat in db
+      upload                                    - 
+      edit                                      - 
+      delete                                    - 
+      change location to long lat in db         - 
       Then adapt all images and set them for each property and in the code
 
 - [ ] Add menu on layout
@@ -28,8 +28,8 @@ TRPC?
 - [ ] Define User prisma model
 - [ ] Add users login (with third party) - store in context
 - [ ] Add user dashboard for user properties management
-- [ ] Add trpc to show off
 - [ ] Add login for clients
-- [ ] Save contact form in pgadmin, add gogle check, add contact list in backend for client
-- [ ] Save search, bookmark properties, email notifications (only hook to send at midnight)
+- [ ] Save contact form in pgadmin, add google check, add contact list in backend for client
+- [ ] Save search, bookmark properties, on local storage
+- [ ] Email notifications (only hook to send at midnight)
 

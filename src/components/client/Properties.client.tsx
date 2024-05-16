@@ -7,7 +7,7 @@ import { Grid, GridItem } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { PropertyListMap } from '../PropertyListMap'
-import { Property } from '@prisma/client'
+import type { Property } from '@prisma/client'
 
 export type FilterParams = {
   priceMin?: string
@@ -27,7 +27,12 @@ const PropertiesPage = ({
   maxPrice?: number
   maxSize?: number
 }) => {
-  const [filterParams, setFilterParams] = useState<FilterParams>({})
+  const defaultFilterParams = {
+    propertyType: '',
+    operationType: '',
+  }
+  const [filterParams, setFilterParams] =
+    useState<FilterParams>(defaultFilterParams)
   const { data, isLoading, isError } = useProperties(filterParams)
   const searchParams = useSearchParams()
   const isMapView = searchParams.get('map') === 'true'

@@ -7,6 +7,8 @@ export default async function EditPropertyPage({
   params: { propertyId: string }
 }) {
   const { propertyId } = params
+  // this should be a hook, don't use prisma on client....
+  // this is the server component, nvm
   const property = await prisma.property.findUnique({
     where: {
       id: parseInt(propertyId),

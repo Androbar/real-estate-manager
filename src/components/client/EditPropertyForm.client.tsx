@@ -8,7 +8,6 @@ import {
 
 import {
   FormProvider,
-  type UseFormSetValue,
   useFieldArray,
   useForm,
   useFormContext,
@@ -60,8 +59,55 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
     ? propertyImages.fields[0].order
     : 0
 
-  const onSubmit = (data: Property) => {
+  const onSubmit = async (data: CombinedProperty) => {
+    // this way is a no no, i should be able to this with react hook form
+    // no no, this is the way to do it, there's no react hook form direct way
+    const formData = new FormData()
+    // for (const key of Object.keys(multipleImages)) {
+    //   formData.append('file1', data.file[key]);
+    // }
+    if (data.propertyImages) {
+      const files: File[] = []
+      for (let i = 0; i < data.propertyImages.length; i++) {
+        const file = data.propertyImages[i].image.file
+        if (file) {
+          files.push(file)
+        }
+      }
+      files.forEach((file, index) => {
+        formData.append(`file${index}`, file)
+      })
+    }
+    // data = { ...data, picture: data.picture[0].name }
+    formData.append('body', JSON.stringify(data))
+    console.log('data', data)
+    console.log('formdata', formData)
+    const url = `/api/admin/properties/${data.id}`
+    const test = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      body: formData,
+    })
+    console.log(test)
+  }
+
+  const onSubmita = async (data: Property) => {
+    // create endpoint to update property, hook from react query
+    // FETCH TO /admin/properties/propertyid
     console.log(data)
+    const url = `/api/admin/properties/${data.id}`
+    console.log(url)
+    const test = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    console.log(test)
+    // create endpoint to create property
   }
 
   const handleAddImageClick = () => {
@@ -333,7 +379,7 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
                 handleCancelImageClick={() => {
                   item.isNew && handleCancelImageClick(idx)
                 }}
-                setValue={methods.setValue}
+                // setValue={methods.setValue}
               />
             )
           })}
@@ -355,48 +401,27 @@ const PropertyImageForm = ({
   imageMode,
   maxImageOrder,
   handleCancelImageClick,
-  setValue,
+  // setValue,
 }: {
   index: number
   image?: PropertyImagesWithImage
   imageMode?: 'edit' | 'read'
   maxImageOrder?: number
   handleCancelImageClick?: () => void
-  setValue?: UseFormSetValue<CombinedProperty>
+  // setValue?: UseFormSetValue<CombinedProperty>
 }) => {
   const [thumbnail, setThumbnail] = useState<string | null>(null)
   const [mode, setMode] = useState<'edit' | 'read'>(imageMode ?? 'read')
-  // type PropertyImagesWithImage = {
-  //   image: {
-  //     filename: string
-  //     url: string
-  //     caption: string | null
-  //   }
-  //   order: number
-  //   isNew?: boolean | undefined
-  // }
+
   const {
     register,
     formState: { errors },
   } = useFormContext()
 
-  const handleFileChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    index: number,
-  ) => {
-    console.log('index:', index)
-    console.log('event:', event)
-    // set value to property images based on index
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0]
     if (selectedFile) {
-      setValue &&
-        setValue(`propertyImages.${index}.image.filename`, selectedFile.name)
-      setValue && setValue(`propertyImages.${index}.image.file`, selectedFile)
-      const reader = new FileReader()
-      reader.onload = event => {
-        setThumbnail(event?.target?.result as string) // Set thumbnail URL
-      }
-      reader.readAsDataURL(selectedFile)
+      setThumbnail(URL.createObjectURL(selectedFile))
     }
   }
 
@@ -443,10 +468,10 @@ const PropertyImageForm = ({
               placeholder="Filename"
               type="file"
               accept="image/*"
+              {...register(`propertyImages.${index}.image.file`)}
               onChange={event => {
                 handleFileChange(event, index)
               }}
-              // {...register(`propertyImages.${index}.image.file`)}
             />
             <FormErrorMessage>
               {errors.propertyImages?.type === 'unsupportedFileType' && (
@@ -506,9 +531,6 @@ const PropertyImageForm = ({
           </HStack>
         </GridItem>
       </Grid>
-      <div>edit abre form con dropzone, edit caption</div>
-      <div>delete elimina la imagen y el property image</div>
-      <div>tambien ver de hacer drag and drop por el orden</div>
     </>
   )
 }

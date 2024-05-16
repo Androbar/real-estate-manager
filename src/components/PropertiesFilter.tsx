@@ -1,130 +1,148 @@
-import { ChangeEvent, Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
-import { Box, Card, CardBody, Text, CardHeader, FormControl, FormLabel, Heading, Input, RangeSlider, RangeSliderFilledTrack, RangeSliderThumb, RangeSliderTrack } from '@chakra-ui/react';
-import { debounce } from 'lodash';
-import { Select } from 'chakra-react-select';
-import { formatNumber } from '@/utils/utils';
-import { FilterParams } from './client/Properties.client';
+import {
+  type ChangeEvent,
+  type Dispatch,
+  type SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react'
+import {
+  Box,
+  Card,
+  CardBody,
+  Text,
+  CardHeader,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+  RangeSlider,
+  RangeSliderFilledTrack,
+  RangeSliderThumb,
+  RangeSliderTrack,
+} from '@chakra-ui/react'
+import { debounce } from 'lodash'
+import { Select } from 'chakra-react-select'
+import { formatNumber } from '@/utils/utils'
+import type { FilterParams } from './client/Properties.client'
 
 export type PropertiesFilterProps = {
-  filterParams: FilterParams;
-  setFilterParams: Dispatch<SetStateAction<FilterParams>>;
-  maxPrice?: number;
-  maxSize?: number;
+  filterParams: FilterParams
+  setFilterParams: Dispatch<SetStateAction<FilterParams>>
+  maxPrice?: number
+  maxSize?: number
 }
 
 const OPERATION_TYPES_OPTIONS = [
-  { value: undefined, label: 'All Types' },
+  { value: '', label: 'All Types' },
   { value: 'SALE', label: 'Sale' },
   { value: 'RENT', label: 'Rent' },
-] as const;
+] as const
 
 const PROPERTY_TYPES_OPTIONS = [
-  { value: undefined, label: 'All Types' },
+  { value: '', label: 'All Types' },
   { value: 'HOUSE', label: 'House' },
   { value: 'APARTMENT', label: 'Apartment' },
   { value: 'OFFICE', label: 'Office' },
   { value: 'WAREHOUSE', label: 'Warehouse' },
   { value: 'LAND', label: 'Land' },
-] as const;
+] as const
 
 export type SelectOption = {
-  value: string | undefined;
-  label: string | undefined;
+  value: string | undefined
+  label: string | undefined
 }
 
 export const PropertiesFilter = ({
   filterParams,
   setFilterParams,
-  maxPrice=1000000,
-  maxSize= 1000
+  maxPrice = 1000000,
+  maxSize = 1000,
 }: PropertiesFilterProps) => {
-  const [priceRange, setPriceRange] = useState([0, maxPrice]);
-  const [sizeRange, setSizeRange] = useState([0, maxSize]);
+  const [priceRange, setPriceRange] = useState([0, maxPrice])
+  const [sizeRange, setSizeRange] = useState([0, maxSize])
 
   const handleFilterChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+    const { name, value } = event.target
     setFilterParams(prev => ({
       ...prev,
-      [name]: value
-    }));
-  };
+      [name]: value,
+    }))
+  }
 
   const handleSelectOperationTypeChange = (option: SelectOption | null) => {
-    if (option === null) {
-      return;
+    if (option) {
+      setFilterParams(prev => ({
+        ...prev,
+        operationType: option.value,
+      }))
     }
-    setFilterParams(prev => ({
-     ...prev,
-      operationType: option.value
-    }));
-  };
+  }
 
   const handleSelectPropertyTypeChange = (option: SelectOption | null) => {
-    if (option === null) {
-      return;
+    if (option) {
+      setFilterParams(prev => ({
+        ...prev,
+        propertyType: option.value,
+      }))
     }
-    setFilterParams(prev => ({
-     ...prev,
-      propertyType: option.value
-    }));
-  };
+  }
   const debouncedSetFilterParams = useCallback(
-    debounce((newParams) => {
-      setFilterParams(newParams);
+    debounce(newParams => {
+      setFilterParams(newParams)
     }, 500),
-    []
-  );
+    [],
+  )
 
   const handlePriceRangeChange = (values: number[]) => {
-    const [min, max] = values;
-    const priceMin = min.toString();
-    const priceMax = max.toString();
-    setPriceRange([min, max]);
+    const [min, max] = values
+    const priceMin = min.toString()
+    const priceMax = max.toString()
+    setPriceRange([min, max])
     debouncedSetFilterParams((prev: FilterParams) => ({
       ...prev,
-      priceMin: priceMin,
-      priceMax: priceMax
-    }));
-  };
+      priceMin,
+      priceMax,
+    }))
+  }
 
-  
   const handleSizeRangeChange = (values: number[]) => {
-    const [min, max] = values;
-    const sizeMin = min.toString();
-    const sizeMax = max.toString();
-    setSizeRange([min, max]);
+    const [min, max] = values
+    const sizeMin = min.toString()
+    const sizeMax = max.toString()
+    setSizeRange([min, max])
     debouncedSetFilterParams((prev: FilterParams) => ({
       ...prev,
-      sizeMin: sizeMin,
-      sizeMax: sizeMax
-    }));
-  };
+      sizeMin,
+      sizeMax,
+    }))
+  }
 
   useEffect(() => {
     return () => {
-      debouncedSetFilterParams.cancel();
-    };
-  }, [debouncedSetFilterParams]);
-
+      debouncedSetFilterParams.cancel()
+    }
+  }, [debouncedSetFilterParams])
 
   return (
     <Card>
       <CardHeader>
-        <Heading size='sm'>Filter Properties</Heading>
+        <Heading size="sm">Filter Properties</Heading>
       </CardHeader>
       <CardBody>
-
         <Box>
           <FormControl>
             <FormLabel>Operation Type</FormLabel>
             <Select
               name="operationType"
               value={{
-                label: OPERATION_TYPES_OPTIONS.find(type => type.value === filterParams.operationType)?.label,
-                value:filterParams.operationType
+                label: OPERATION_TYPES_OPTIONS.find(
+                  type => type.value === filterParams.operationType,
+                )?.label,
+                value: filterParams.operationType,
               }}
               options={OPERATION_TYPES_OPTIONS}
-              onChange={(value) => handleSelectOperationTypeChange(value)}
+              onChange={handleSelectOperationTypeChange}
               size={'sm'}
             />
           </FormControl>
@@ -133,11 +151,13 @@ export const PropertiesFilter = ({
             <Select
               name="propertyType"
               value={{
-                label: PROPERTY_TYPES_OPTIONS.find(type => type.value === filterParams.propertyType)?.label,
-                value:filterParams.propertyType
+                label: PROPERTY_TYPES_OPTIONS.find(
+                  type => type.value === filterParams.propertyType,
+                )?.label,
+                value: filterParams.propertyType,
               }}
               options={PROPERTY_TYPES_OPTIONS}
-              onChange={(value) => handleSelectPropertyTypeChange(value)}
+              onChange={handleSelectPropertyTypeChange}
               size={'sm'}
             />
           </FormControl>
@@ -193,16 +213,24 @@ export const PropertiesFilter = ({
           </FormControl>
           <FormControl>
             <FormLabel>Bedrooms</FormLabel>
-            <Input name="bedrooms" value={filterParams.bedrooms} onChange={handleFilterChange} />
+            <Input
+              name="bedrooms"
+              value={filterParams.bedrooms}
+              onChange={handleFilterChange}
+            />
           </FormControl>
           <FormControl>
             <FormLabel>Bathrooms</FormLabel>
-            <Input name="bathrooms" value={filterParams.bathrooms} onChange={handleFilterChange} />
+            <Input
+              name="bathrooms"
+              value={filterParams.bathrooms}
+              onChange={handleFilterChange}
+            />
           </FormControl>
           {/* <input name="priceMin" value={filterParams.priceMin} onChange={handleFilterChange} />
         <input name="priceMax" value={filterParams.priceMax} onChange={handleFilterChange} /> */}
         </Box>
       </CardBody>
     </Card>
-  );
-};
+  )
+}
