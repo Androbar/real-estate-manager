@@ -1,6 +1,6 @@
-import { NextResponse, type NextRequest } from 'next/server'
-import multer from 'multer'
-import nextConnect from 'next-connect'
+import { FormidableError, parseForm } from '@/lib/parse-form'
+import type { NextApiRequest, NextApiResponse } from 'next'
+import { NextResponse } from 'next/server'
 
 export const config = {
   api: {
@@ -8,50 +8,29 @@ export const config = {
   },
 }
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: { propertyId: string } },
-) {
-  const { propertyId } = params
-  console.log(request.headers)
-  const body = await request.formData()
-  console.log('body', body)
-  // parse the files from body.propertyImages[n].image.file
-  // and assign filename and url to propertyImages[n].image
-  // remove the key 'file' from body.propertyImages[n].image.file
-  // also move the image to the public/images/properties folder
-  // add the key 'url' to body.propertyImages[n].image
-  // Example of handling file uploads and modifying the request body
-  // for (let i = 0; i < body.propertyImages.length; i++) {
-  //   const file: File = body.propertyImages[i].image.file // Your original file object
-  //   console.log('file', file)
-  //   if (!file) {
-  //     continue
-  //   }
-  //   // const buffer = Buffer.from(await file.arrayBuffer())
-  //   // const filename = body.propertyImages[i].image.filename
-  //   // const fileUrl = `public/uploads/${filename}`
-  //   // try {
-  //   //   await writeFile(path.join(process.cwd(), fileUrl), buffer)
-  //   // } catch (error) {
-  //   //   console.log('Error occured ', error)
-  //   //   return NextResponse.json({ Message: 'Failed', status: 500 })
-  //   // }
-
-  //   // // Update body with new filename and URL, remove 'file' key
-  //   // body.propertyImages[i].image.url = fileUrl
-  //   // delete body.propertyImages[i].image.file // Remove the 'file' key
-  // }
-  // console.log('new body', body)
-  // const updatedProperty = await prisma?.property.update({
-  //   where: {
-  //     id: parseInt(propertyId),
-  //   },
-  //   data: body,
-  // })
-
-  // return NextResponse.json({ data: { ...updatedProperty } })
-  return NextResponse.json({
-    data: { test: `test for property id ${propertyId}` },
-  })
+interface Data {
+  name: string
+}
+// Export the API route with Next.js specific handler
+export async function POST(req: NextApiRequest, res: NextApiResponse<Data>) {
+  try {
+    const { fields, files } = await parseForm(req)
+    console.log({ fields, files })
+    const file = files.media
+    const url = Array.isArray(file) ? file.map(f => f.filepath) : 'chupala'
+    return NextResponse.json({ data: { url } }, { status: 200 })
+  } catch (error) {
+    if (error instanceof FormidableError) {
+      return NextResponse.json(
+        { data: null, error: error.message },
+        { status: error.httpCode ?? 400 },
+      )
+    } else {
+      console.error(error)
+      return NextResponse.json(
+        { data: null, error: 'Internal server error' },
+        { status: 500 },
+      )
+    }
+  }
 }

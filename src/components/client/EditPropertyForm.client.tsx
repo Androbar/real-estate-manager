@@ -60,25 +60,17 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
     : 0
 
   const onSubmit = async (data: CombinedProperty) => {
-    // this way is a no no, i should be able to this with react hook form
-    // no no, this is the way to do it, there's no react hook form direct way
     const formData = new FormData()
-    // for (const key of Object.keys(multipleImages)) {
-    //   formData.append('file1', data.file[key]);
-    // }
+
     if (data.propertyImages) {
-      const files: File[] = []
       for (let i = 0; i < data.propertyImages.length; i++) {
         const file = data.propertyImages[i].image.file
         if (file) {
-          files.push(file)
+          formData.append('files', file)
         }
       }
-      files.forEach((file, index) => {
-        formData.append(`file${index}`, file)
-      })
     }
-    // data = { ...data, picture: data.picture[0].name }
+
     formData.append('body', JSON.stringify(data))
     console.log('data', data)
     console.log('formdata', formData)
