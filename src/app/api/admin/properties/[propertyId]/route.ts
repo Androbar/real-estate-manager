@@ -1,36 +1,39 @@
-import { FormidableError, parseForm } from '@/lib/parse-form'
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { NextResponse } from 'next/server'
+import { writeFile } from 'fs/promises'
+import { type NextRequest, NextResponse } from 'next/server'
+import { format } from 'date-fns'
+import path from 'path'
+import { mkdirSync } from 'fs'
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-}
+export async function POST(req: NextRequest) {
+  const form = await req.formData()
 
-interface Data {
-  name: string
-}
-// Export the API route with Next.js specific handler
-export async function POST(req: NextApiRequest, res: NextApiResponse<Data>) {
-  try {
-    const { fields, files } = await parseForm(req)
-    console.log({ fields, files })
-    const file = files.media
-    const url = Array.isArray(file) ? file.map(f => f.filepath) : 'chupala'
-    return NextResponse.json({ data: { url } }, { status: 200 })
-  } catch (error) {
-    if (error instanceof FormidableError) {
-      return NextResponse.json(
-        { data: null, error: error.message },
-        { status: error.httpCode ?? 400 },
-      )
-    } else {
-      console.error(error)
-      return NextResponse.json(
-        { data: null, error: 'Internal server error' },
-        { status: 500 },
-      )
+  // I have to prepare the data for update the property and the files at the same times
+  const files: File[] | null = form.getAll('files') as unknown as File[]
+  if (files) {
+    for (const file of files) {
+      const path = await saveFile(file)
+      console.log('path', path)
     }
   }
+
+  return NextResponse.json({ message: 'Files Created' })
+}
+
+const saveFile = async (file: File) => {
+  const path = getPath(file.name)
+  const bytes = await file.arrayBuffer()
+  const buffer = Buffer.from(bytes)
+  await writeFile(path, buffer)
+  return path
+}
+
+// TODO: this only works on my pc, have to see how to handle the folder structure
+// on a production server, maybe store the files in a complete different folder
+// outside the project so it doesn't get deleted on redeploy
+const getPath = (filename: string) => {
+  const currentDate = new Date()
+  const formattedDate = format(currentDate, 'yyyy-MM-dd') // Using date-fns to format the date
+  const uploadDir = path.join(process.env.FILES_DIR ?? '', formattedDate)
+  mkdirSync(uploadDir, { recursive: true })
+  return path.join(uploadDir, filename)
 }

@@ -18,7 +18,6 @@
     "chakra-react-select": "^4.7.6",
     "date-fns": "^3.6.0",
     "dotenv": "^16.4.1",
-    "formidable": "^3.5.1",
     "framer-motion": "^11.0.3",
     "leaflet": "^1.9.4",
     "lodash": "^4.17.21",
@@ -35,7 +34,6 @@
     "ts-node": "^10.9.2"
   },
   "devDependencies": {
-    "@types/formidable": "^3.4.5",
     "@types/leaflet": "^1.9.8",
     "@types/mime": "^4.0.0",
     "@types/node": "^20",

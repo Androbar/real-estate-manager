@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   type PropertyImages,
   type Property,
@@ -32,7 +32,7 @@ import {
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons'
 
 type PropertyImagesWithImage = {
-  image: Omit<TypeImage, 'id' | 'createdAt'> & { file?: File }
+  image: Omit<TypeImage, 'id' | 'createdAt'> & { file?: FileList }
 } & Omit<PropertyImages, 'propertyId' | 'imageId'> & { isNew?: boolean }
 
 type CombinedProperty = {
@@ -41,6 +41,8 @@ type CombinedProperty = {
 
 export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
   const [isAddingImage, setIsAddingImage] = useState(false)
+  // TODO: replace console log
+  console.log(setIsAddingImage)
 
   const methods = useForm({ defaultValues: property })
   const {
@@ -49,7 +51,6 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
     control,
     formState: { errors },
   } = methods
-
   const propertyImages = useFieldArray({
     control,
     name: 'propertyImages',
@@ -61,25 +62,23 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
 
   const onSubmit = async (data: CombinedProperty) => {
     const formData = new FormData()
-
+    // NOTE: here I have to loop property images, and set a way to link property images
+    // to the uploaded file urls.
     if (data.propertyImages) {
-      for (let i = 0; i < data.propertyImages.length; i++) {
-        const file = data.propertyImages[i].image.file
-        if (file) {
-          formData.append('files', file)
-        }
-      }
+      const files = data.propertyImages
+        .map(item => (item.image.file ? item.image.file[0] : null))
+        .filter(file => file !== null) as File[]
+      files.forEach((file, index) => {
+        formData.append('files', file)
+      })
     }
 
-    formData.append('body', JSON.stringify(data))
-    console.log('data', data)
-    console.log('formdata', formData)
+    formData.set('body', JSON.stringify(data))
+    // console.log('data', data)
+    // console.log('formdata', formData)
     const url = `/api/admin/properties/${data.id}`
     const test = await fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
       body: formData,
     })
     console.log(test)
@@ -101,6 +100,8 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
     console.log(test)
     // create endpoint to create property
   }
+  // TODO: replace console log
+  console.log(onSubmita)
 
   const handleAddImageClick = () => {
     propertyImages.append({
@@ -118,6 +119,13 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
   const handleCancelImageClick = (index: number) => {
     propertyImages.remove(index)
   }
+
+  useEffect(() => {
+    propertyImages.fields.forEach(item => {
+      console.log(item.image)
+    })
+  }, [propertyImages])
+  console.log('propertyImages.fields', propertyImages.fields)
 
   return (
     <FormProvider {...methods}>
@@ -460,9 +468,11 @@ const PropertyImageForm = ({
               placeholder="Filename"
               type="file"
               accept="image/*"
-              {...register(`propertyImages.${index}.image.file`)}
+              {...register(`propertyImages.${index}.image.file`, {
+                required: 'Please select a file',
+              })}
               onChange={event => {
-                handleFileChange(event, index)
+                handleFileChange(event)
               }}
             />
             <FormErrorMessage>
