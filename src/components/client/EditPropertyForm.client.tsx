@@ -416,6 +416,7 @@ const PropertyImageForm = ({
   const {
     register,
     formState: { errors },
+    getValues,
   } = useFormContext()
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -432,6 +433,8 @@ const PropertyImageForm = ({
       setMode('read')
     }
   }
+
+  const imageUrl = getValues(`propertyImages.${index}.image.url`)
 
   return (
     <>
@@ -471,6 +474,7 @@ const PropertyImageForm = ({
               {...register(`propertyImages.${index}.image.file`, {
                 required: 'Please select a file',
               })}
+              disabled={imageUrl !== ''}
               onChange={event => {
                 handleFileChange(event)
               }}
@@ -494,7 +498,8 @@ const PropertyImageForm = ({
           </FormControl>
         </GridItem>
         <GridItem colSpan={2}>
-          {thumbnail && <Image src={thumbnail} />}
+          {/* TODO: need to learn how to develop with images */}
+          {(imageUrl ?? thumbnail) && <Image src={imageUrl ?? thumbnail} />}
         </GridItem>
         <GridItem colSpan={2}>
           <HStack>
