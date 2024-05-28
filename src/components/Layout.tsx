@@ -1,30 +1,24 @@
 'use client'
 // components/Layout.tsx
 
-import React, { ReactNode } from 'react';
-import { Box, Container, HStack, Link } from '@chakra-ui/react';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import React, { type PropsWithChildren } from 'react'
+import { Container } from '@chakra-ui/react'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { Header } from '@/components/client/Header'
+import { Footer } from '@/components/client/Footer'
 
-interface LayoutProps {
-  children: ReactNode;
-}
-const queryClient = new QueryClient();
+const queryClient = new QueryClient()
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <Container maxW="6xl">
-        <Box w={('100%')} bg={'#cecece'}>
-          <HStack p={4}>
-            <Link href='/'>Home</Link>
-            <Link href='/map'>Map</Link>
-            <Link href='/properties'>Properties</Link>
-          </HStack>
-        </Box>
+        <Header />
         {children}
+        <Footer />
       </Container>
     </QueryClientProvider>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

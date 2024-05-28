@@ -18,13 +18,30 @@ TRPC?
 - [ x ] Add property map with open street maps and marker, do cool markers
 - [ ] Add upload/edit/delete(soft) property page
       upload                                    - 
-      edit                                      - 
+      edit                                      - done
       delete                                    - 
       change location to long lat in db         - 
       Then adapt all images and set them for each property and in the code
-
-- [ ] Add menu on layout
-- [ ] Add footer on layout
+- [ ] Build home page
+      big hero 
+      fast search properties bar
+      featured properties
+      ** see https://domusbienesraices.com.ar/ for cards design
+      About us section
+      contact us
+      footer w/newsletter
+      copyright
+- [ x ] Pages:
+      Buy         - just pass a querystring with sell
+      Rent        - pass a querystring with rent
+      Sell        - new page
+      Blog        - some entry posts
+      About us    - aboot us
+      Contact     - form to contact
+- [ x ] Add menu on layout
+- [ x ] Add footer on layout
+- [ ] Remove global container and add localized container by sections
+- [ ] Add whatsapp icon on layout with chat to send
 - [ ] Define User prisma model
 - [ ] Add users login (with third party) - store in context
 - [ ] Add user dashboard for user properties management

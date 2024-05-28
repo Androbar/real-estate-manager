@@ -26,7 +26,8 @@
     "@typescript-eslint/semi": "off",
     "@typescript-eslint/comma-dangle": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",
-    "consistent-type-definitions": "off",
+    "@typescript-eslint/consistent-type-definitions": "off",
+    "@typescript-eslint/prefer-optional-chain": "off",
     "@typescript-eslint/no-misused-promises": [
       2,
       {
