@@ -2,23 +2,11 @@
 
 import { PropertiesFilter } from '@/components/PropertiesFilter'
 import { PropertiesList } from '@/components/PropertyList'
-import { useProperties } from '@/hooks/useProperties'
 import { Grid, GridItem } from '@chakra-ui/react'
-import React, { useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { PropertyListMap } from '../PropertyListMap'
 import type { Property } from '@prisma/client'
-
-export type FilterParams = {
-  priceMin?: string
-  priceMax?: string
-  propertyType?: string
-  operationType?: string
-  sizeMin?: string
-  sizeMax?: string
-  bedrooms?: string
-  bathrooms?: string
-}
+import { usePropertiesFilterParams } from '@/hooks/useFilteredProperties'
 
 const PropertiesPage = ({
   maxPrice = 1000000,
@@ -31,9 +19,9 @@ const PropertiesPage = ({
     propertyType: '',
     operationType: '',
   }
-  const [filterParams, setFilterParams] =
-    useState<FilterParams>(defaultFilterParams)
-  const { data, isLoading, isError } = useProperties(filterParams)
+  const { filterParams, setFilterParams, properties, isLoading, isError } =
+    usePropertiesFilterParams(defaultFilterParams)
+
   const searchParams = useSearchParams()
   const isMapView = searchParams.get('map') === 'true'
 
@@ -50,11 +38,11 @@ const PropertiesPage = ({
       <GridItem colSpan={9}>
         {isLoading && <div>Loading...</div>}
         {isError && <div>An error occurred</div>}
-        {!isLoading && !isError && !data?.data.length && (
+        {!isLoading && !isError && !properties.length && (
           <div>No properties found</div>
         )}
-        {!isLoading && !isError && data?.data.length && (
-          <ListMapSwitcher isMapView={isMapView} properties={data?.data} />
+        {!isLoading && !isError && properties.length && (
+          <ListMapSwitcher isMapView={isMapView} properties={properties} />
         )}
       </GridItem>
     </Grid>

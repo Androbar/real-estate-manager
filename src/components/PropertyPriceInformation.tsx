@@ -1,13 +1,16 @@
-import { Box, Heading, Text } from "@chakra-ui/react";
-import { Property } from "@prisma/client";
+import { Box, Heading, Text } from '@chakra-ui/react'
+import type { Property } from '@prisma/client'
 
 const INFORMATION_TEXT = {
   SALE: 'Price',
   RENT: 'Monthly Rent',
-} as const;
+} as const
 
-export const PropertyPriceInformation = ({property}: {property: Property}) => {
-
+export const PropertyPriceInformation = ({
+  property,
+}: {
+  property: Property
+}) => {
   return (
     <Box>
       <Heading size="md">Price Information</Heading>
@@ -15,5 +18,5 @@ export const PropertyPriceInformation = ({property}: {property: Property}) => {
         {INFORMATION_TEXT[property.operationType]}: ${property.price}
       </Text>
     </Box>
-  );
-};
+  )
+}

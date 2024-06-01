@@ -1,11 +1,4 @@
-import {
-  type ChangeEvent,
-  type Dispatch,
-  type SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react'
+import { type ChangeEvent, useCallback, useEffect, useState } from 'react'
 import {
   Box,
   Card,
@@ -24,33 +17,14 @@ import {
 import { debounce } from 'lodash'
 import { Select } from 'chakra-react-select'
 import { formatNumber } from '@/utils/utils'
-import type { FilterParams } from './client/Properties.client'
+import type { FilterParams, SelectOption } from '@/types/properties'
+import { OPERATION_TYPES_OPTIONS, PROPERTY_TYPES_OPTIONS } from '@/constants'
 
 export type PropertiesFilterProps = {
   filterParams: FilterParams
-  setFilterParams: Dispatch<SetStateAction<FilterParams>>
+  setFilterParams: (newParams: Partial<FilterParams>) => void
   maxPrice?: number
   maxSize?: number
-}
-
-const OPERATION_TYPES_OPTIONS = [
-  { value: '', label: 'All Types' },
-  { value: 'SALE', label: 'Sale' },
-  { value: 'RENT', label: 'Rent' },
-] as const
-
-const PROPERTY_TYPES_OPTIONS = [
-  { value: '', label: 'All Types' },
-  { value: 'HOUSE', label: 'House' },
-  { value: 'APARTMENT', label: 'Apartment' },
-  { value: 'OFFICE', label: 'Office' },
-  { value: 'WAREHOUSE', label: 'Warehouse' },
-  { value: 'LAND', label: 'Land' },
-] as const
-
-export type SelectOption = {
-  value: string | undefined
-  label: string | undefined
 }
 
 export const PropertiesFilter = ({
@@ -64,31 +38,22 @@ export const PropertiesFilter = ({
 
   const handleFilterChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
-    setFilterParams(prev => ({
-      ...prev,
-      [name]: value,
-    }))
+    setFilterParams({ [name]: value })
   }
 
   const handleSelectOperationTypeChange = (option: SelectOption | null) => {
     if (option) {
-      setFilterParams(prev => ({
-        ...prev,
-        operationType: option.value,
-      }))
+      setFilterParams({ operationType: option.value })
     }
   }
 
   const handleSelectPropertyTypeChange = (option: SelectOption | null) => {
     if (option) {
-      setFilterParams(prev => ({
-        ...prev,
-        propertyType: option.value,
-      }))
+      setFilterParams({ propertyType: option.value })
     }
   }
   const debouncedSetFilterParams = useCallback(
-    debounce(newParams => {
+    debounce((newParams: Partial<FilterParams>) => {
       setFilterParams(newParams)
     }, 500),
     [],
@@ -99,11 +64,7 @@ export const PropertiesFilter = ({
     const priceMin = min.toString()
     const priceMax = max.toString()
     setPriceRange([min, max])
-    debouncedSetFilterParams((prev: FilterParams) => ({
-      ...prev,
-      priceMin,
-      priceMax,
-    }))
+    debouncedSetFilterParams({ priceMin, priceMax })
   }
 
   const handleSizeRangeChange = (values: number[]) => {
@@ -111,11 +72,7 @@ export const PropertiesFilter = ({
     const sizeMin = min.toString()
     const sizeMax = max.toString()
     setSizeRange([min, max])
-    debouncedSetFilterParams((prev: FilterParams) => ({
-      ...prev,
-      sizeMin,
-      sizeMax,
-    }))
+    debouncedSetFilterParams({ sizeMin, sizeMax })
   }
 
   useEffect(() => {

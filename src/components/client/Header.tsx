@@ -30,7 +30,7 @@ export function Header() {
   const { isOpen, onToggle } = useDisclosure()
 
   return (
-    <Container maxW="6xl">
+    <Container maxW="6xl" as={'header'}>
       <Flex
         bg={useColorModeValue('white', 'gray.800')}
         color={useColorModeValue('gray.600', 'white')}
@@ -111,7 +111,7 @@ const DesktopNav = () => {
   const popoverContentBgColor = useColorModeValue('white', 'gray.800')
 
   return (
-    <Stack direction={'row'} alignItems={'center'} spacing={4}>
+    <Stack direction={'row'} alignItems={'center'} spacing={4} as={'nav'}>
       {NAV_ITEMS.map(navItem => (
         <Box key={navItem.label}>
           <Popover trigger={'hover'} placement={'bottom-start'}>

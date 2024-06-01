@@ -1,4 +1,4 @@
-export const MAX_WIDTH = '1280px';
+export const MAX_WIDTH = '1280px'
 
 export const PROPERTY_TYPES = {
   HOUSE: {
@@ -25,8 +25,23 @@ export const PROPERTY_TYPES = {
     label: 'Land',
     icon: 'land',
     color: 'gray.500',
-  }
-} as const;
+  },
+} as const
+
+export const OPERATION_TYPES_OPTIONS = [
+  { value: '', label: 'All Types' },
+  { value: 'SALE', label: 'Sale' },
+  { value: 'RENT', label: 'Rent' },
+] as const
+
+export const PROPERTY_TYPES_OPTIONS = [
+  { value: '', label: 'All Types' },
+  { value: 'HOUSE', label: 'House' },
+  { value: 'APARTMENT', label: 'Apartment' },
+  { value: 'OFFICE', label: 'Office' },
+  { value: 'WAREHOUSE', label: 'Warehouse' },
+  { value: 'LAND', label: 'Land' },
+] as const
 
 export const PROPERTY_IMAGES = [
   {
@@ -85,5 +100,4 @@ export const PROPERTY_IMAGES = [
     caption: 'Living room',
     order: 8,
   },
-
 ]
