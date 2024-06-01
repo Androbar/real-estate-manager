@@ -15,6 +15,7 @@ import {
   useColorModeValue,
   useDisclosure,
   Link,
+  Container,
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import logo from '@/assets/logoipsum-286.svg'
@@ -29,7 +30,7 @@ export function Header() {
   const { isOpen, onToggle } = useDisclosure()
 
   return (
-    <Box>
+    <Container maxW="6xl">
       <Flex
         bg={useColorModeValue('white', 'gray.800')}
         color={useColorModeValue('gray.600', 'white')}
@@ -100,7 +101,7 @@ export function Header() {
       <Collapse in={isOpen} animateOpacity>
         <MobileNav />
       </Collapse>
-    </Box>
+    </Container>
   )
 }
 

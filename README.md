@@ -40,7 +40,8 @@ TRPC?
       Contact     - form to contact
 - [ x ] Add menu on layout
 - [ x ] Add footer on layout
-- [ ] Remove global container and add localized container by sections
+- [ x ] Remove global container and add localized container by sections
+      header, footer
 - [ ] Add whatsapp icon on layout with chat to send
 - [ ] Define User prisma model
 - [ ] Add users login (with third party) - store in context
