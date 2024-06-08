@@ -23,14 +23,14 @@ TRPC?
       change location to long lat in db         - 
       Then adapt all images and set them for each property and in the code
 - [ ] Build home page
-      big hero 
-      fast search properties bar
-      featured properties
+      big hero                                  - done
+      fast search properties bar                - done
+      featured properties                       - 
       ** see https://domusbienesraices.com.ar/ for cards design
-      About us section
-      contact us
-      footer w/newsletter
-      copyright
+      About us section                          - 
+      contact us check reynoso bienes raices    - 
+      footer w/newsletter                       - 
+      copyright                                 - done
 - [ x ] Pages:
       Buy         - just pass a querystring with sell
       Rent        - pass a querystring with rent
@@ -42,6 +42,7 @@ TRPC?
 - [ x ] Add footer on layout
 - [ x ] Remove global container and add localized container by sections
       header, footer
+- [ ] Refactor to get queryParams in /properties
 - [ ] Add whatsapp icon on layout with chat to send
 - [ ] Define User prisma model
 - [ ] Add users login (with third party) - store in context

@@ -4,29 +4,42 @@ export const PROPERTY_TYPES = {
   HOUSE: {
     label: 'House',
     icon: 'house',
-    color: 'blue.500',
+    color: 'blue',
   },
   APARTMENT: {
     label: 'Apartment',
     icon: 'apartment',
-    color: 'green.500',
+    color: 'green',
   },
   OFFICE: {
     label: 'Office',
     icon: 'office',
-    color: 'yellow.500',
+    color: 'yellow',
   },
   WAREHOUSE: {
     label: 'Warehouse',
     icon: 'warehouse',
-    color: 'purple.500',
+    color: 'purple',
   },
   LAND: {
     label: 'Land',
     icon: 'land',
-    color: 'gray.500',
+    color: 'gray',
   },
 } as const
+
+export const OPERATION_TYPES = {
+  SALE: {
+    label: 'Sale',
+    icon: 'sale',
+    color: 'green',
+  },
+  RENT: {
+    label: 'Rent',
+    icon: 'rent',
+    color: 'purple',
+  },
+}
 
 export const OPERATION_TYPES_OPTIONS = [
   { value: '', label: 'All Types' },

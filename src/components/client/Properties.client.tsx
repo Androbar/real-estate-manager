@@ -2,7 +2,7 @@
 
 import { PropertiesFilter } from '@/components/PropertiesFilter'
 import { PropertiesList } from '@/components/PropertyList'
-import { Grid, GridItem } from '@chakra-ui/react'
+import { Container, Grid, GridItem } from '@chakra-ui/react'
 import { useSearchParams } from 'next/navigation'
 import { PropertyListMap } from '../PropertyListMap'
 import type { Property } from '@prisma/client'
@@ -26,26 +26,28 @@ const PropertiesPage = ({
   const isMapView = searchParams.get('map') === 'true'
 
   return (
-    <Grid templateColumns={'repeat(12, 1fr)'} gap={6}>
-      <GridItem colSpan={3}>
-        <PropertiesFilter
-          filterParams={filterParams}
-          setFilterParams={setFilterParams}
-          maxPrice={maxPrice}
-          maxSize={maxSize}
-        />
-      </GridItem>
-      <GridItem colSpan={9}>
-        {isLoading && <div>Loading...</div>}
-        {isError && <div>An error occurred</div>}
-        {!isLoading && !isError && !properties.length && (
-          <div>No properties found</div>
-        )}
-        {!isLoading && !isError && properties.length && (
-          <ListMapSwitcher isMapView={isMapView} properties={properties} />
-        )}
-      </GridItem>
-    </Grid>
+    <Container maxW="6xl">
+      <Grid templateColumns={'repeat(12, 1fr)'} gap={6}>
+        <GridItem colSpan={3}>
+          <PropertiesFilter
+            filterParams={filterParams}
+            setFilterParams={setFilterParams}
+            maxPrice={maxPrice}
+            maxSize={maxSize}
+          />
+        </GridItem>
+        <GridItem colSpan={9}>
+          {isLoading && <div>Loading...</div>}
+          {isError && <div>An error occurred</div>}
+          {!isLoading && !isError && !properties.length && (
+            <div>No properties found</div>
+          )}
+          {!isLoading && !isError && properties.length && (
+            <ListMapSwitcher isMapView={isMapView} properties={properties} />
+          )}
+        </GridItem>
+      </Grid>
+    </Container>
   )
 }
 
