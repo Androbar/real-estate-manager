@@ -25,9 +25,12 @@ TRPC?
 - [ ] Build home page
       big hero                                  - done
       fast search properties bar                - done
-      featured properties                       - 
+      featured properties                       - done
       ** see https://domusbienesraices.com.ar/ for cards design
       About us section                          - 
+            - right lorem ipsim 
+            - left background image full width with numbers over it about sell rents
+            - number of people who trusts us
       contact us check reynoso bienes raices    - 
       footer w/newsletter                       - 
       copyright                                 - done
