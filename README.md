@@ -30,7 +30,7 @@ TRPC?
       About us section                          - done
       contact us check reynoso bienes raices    - done
       blog entries                              - done
-      footer w/newsletter                       - 
+      footer w/newsletter                       - done
       copyright                                 - done
 - [ x ] Pages:
       Buy         - just pass a querystring with sell
