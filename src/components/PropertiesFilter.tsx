@@ -15,6 +15,8 @@ import {
   RangeSliderFilledTrack,
   RangeSliderThumb,
   RangeSliderTrack,
+  NumberInputField,
+  NumberInput,
 } from '@chakra-ui/react'
 import { debounce } from 'lodash'
 import { Select } from 'chakra-react-select'
@@ -37,13 +39,23 @@ export const PropertiesFilter = ({
   maxSize = 1000,
   queryString = '',
 }: PropertiesFilterProps) => {
-  const [priceRange, setPriceRange] = useState([0, maxPrice])
   const [sizeRange, setSizeRange] = useState([0, maxSize])
   const router = useRouter()
 
   useEffect(() => {
     router.push(`?${queryString}`, { scroll: false })
   }, [queryString])
+
+  const handleMinPriceChange = (valueString: string) => {
+    if (valueString) {
+      setFilterParams({ priceMin: valueString })
+    }
+  }
+  const handleMaxPriceChange = (valueString: string) => {
+    if (valueString) {
+      setFilterParams({ priceMax: valueString })
+    }
+  }
 
   const handleFilterChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -67,14 +79,6 @@ export const PropertiesFilter = ({
     }, 500),
     [],
   )
-
-  const handlePriceRangeChange = (values: number[]) => {
-    const [min, max] = values
-    const priceMin = min.toString()
-    const priceMax = max.toString()
-    setPriceRange([min, max])
-    debouncedSetFilterParams({ priceMin, priceMax })
-  }
 
   const handleSizeRangeChange = (values: number[]) => {
     const [min, max] = values
@@ -129,26 +133,32 @@ export const PropertiesFilter = ({
           </FormControl>
           <FormControl>
             <FormLabel>Price Range</FormLabel>
-            <Box position={'relative'} pt={5}>
-              <RangeSlider
-                aria-label={['min', 'max']}
-                value={priceRange}
-                defaultValue={[0, maxPrice]}
-                min={0}
-                max={maxPrice}
-                onChange={handlePriceRangeChange}
-              >
-                <RangeSliderTrack>
-                  <RangeSliderFilledTrack />
-                </RangeSliderTrack>
-                <RangeSliderThumb index={0} />
-                <RangeSliderThumb index={1} />
-              </RangeSlider>
-              <Box position={'absolute'} top={0} left={0} height={2}>
-                <Text>$ {formatNumber(priceRange[0])}</Text>
+            <Box display="flex" justifyContent="space-between">
+              <Box>
+                <Text>Min Price</Text>
+                <NumberInput
+                  value={filterParams.priceMin}
+                  min={0}
+                  max={maxPrice}
+                  onChange={valueString => {
+                    handleMinPriceChange(valueString)
+                  }}
+                >
+                  <NumberInputField fontSize={'sm'} />
+                </NumberInput>
               </Box>
-              <Box position={'absolute'} top={0} right={0} height={2}>
-                <Text>$ {formatNumber(priceRange[1])}</Text>
+              <Box>
+                <Text>Max Price</Text>
+                <NumberInput
+                  value={filterParams.priceMax}
+                  min={0}
+                  max={maxPrice}
+                  onChange={valueString => {
+                    handleMaxPriceChange(valueString)
+                  }}
+                >
+                  <NumberInputField fontSize={'sm'} />
+                </NumberInput>
               </Box>
             </Box>
           </FormControl>
