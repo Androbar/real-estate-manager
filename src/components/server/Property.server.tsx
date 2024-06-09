@@ -29,9 +29,12 @@ import dynamic from 'next/dynamic'
 import { PropertyFullAttributes } from '@/components/PropertyFullAttributes'
 import { PropertyPriceInformation } from '@/components/PropertyPriceInformation'
 
-const PropertyMap = dynamic(() => import('@/components/PropertyMap'), {
-  ssr: false,
-})
+const PropertyMap = dynamic(
+  async () => await import('@/components/PropertyMap'),
+  {
+    ssr: false,
+  },
+)
 
 const PropertyServerComponent = async ({ slug }: { slug: string }) => {
   const property = await prisma.property.findUnique({

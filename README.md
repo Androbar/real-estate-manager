@@ -22,7 +22,7 @@ TRPC?
       delete                                    - 
       change location to long lat in db         - 
       Then adapt all images and set them for each property and in the code
-- [ ] Build home page
+- [ x ] Build home page
       big hero                                  - done
       fast search properties bar                - done
       featured properties                       - done
@@ -43,7 +43,7 @@ TRPC?
 - [ x ] Add footer on layout
 - [ x ] Remove global container and add localized container by sections
       header, footer
-- [ ] Add blog post pages, and featured images
+- [ x ] Add blog post pages, and featured images
 - [ ] Refactor to get queryParams in /properties
 - [ ] Add whatsapp icon on layout with chat to send
 - [ ] Define User prisma model
@@ -53,4 +53,5 @@ TRPC?
 - [ ] Save contact form in pgadmin, add google check, add contact list in backend for client
 - [ ] Save search, bookmark properties, on local storage
 - [ ] Email notifications (only hook to send at midnight)
+
 

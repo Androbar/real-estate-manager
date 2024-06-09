@@ -1,6 +1,14 @@
 import { POSTS } from '@/data/blog'
 import type { BlogPost } from '@/types/blog'
-import { Box, Heading, Image, Text, Container, Flex } from '@chakra-ui/react'
+import {
+  Box,
+  Heading,
+  Image,
+  Text,
+  Container,
+  Flex,
+  Button,
+} from '@chakra-ui/react'
 
 function BlogPosts() {
   return (
@@ -28,6 +36,15 @@ function BlogPostCard({ post }: BlogPostCardProps) {
       <Text mt={2}>By {post.author.name}</Text>
       <Text mt={1}>Published at {post.publishedAt}</Text>
       <Text mt={2}>{post.summary}</Text>
+      <Button
+        mt={4}
+        colorScheme="teal"
+        size="md"
+        as="a"
+        href={`/blog/${post.slug}`}
+      >
+        Read More
+      </Button>
     </Box>
   )
 }
