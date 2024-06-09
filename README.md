@@ -49,6 +49,7 @@ TRPC?
 - [ ] Add whatsapp icon on layout with chat to send
 - [ ] Define User prisma model
 - [ ] Add users login (with third party) - store in context
+      * create a key to use before sign in so people doesn't sign
 - [ ] Add user dashboard for user properties management
 - [ ] Add login for clients
 - [ ] Save contact form in pgadmin, add google check, add contact list in backend for client

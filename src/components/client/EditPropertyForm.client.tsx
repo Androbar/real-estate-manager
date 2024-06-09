@@ -74,8 +74,6 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
     }
 
     formData.set('body', JSON.stringify(data))
-    // console.log('data', data)
-    // console.log('formdata', formData)
     const url = `/api/admin/properties/${data.id}`
     const test = await fetch(url, {
       method: 'POST',
@@ -87,9 +85,7 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
   const onSubmita = async (data: Property) => {
     // create endpoint to update property, hook from react query
     // FETCH TO /admin/properties/propertyid
-    console.log(data)
     const url = `/api/admin/properties/${data.id}`
-    console.log(url)
     const test = await fetch(url, {
       method: 'POST',
       headers: {
@@ -125,7 +121,6 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
       console.log(item.image)
     })
   }, [propertyImages])
-  console.log('propertyImages.fields', propertyImages.fields)
 
   return (
     <FormProvider {...methods}>

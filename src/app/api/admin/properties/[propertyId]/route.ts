@@ -78,9 +78,7 @@ export async function POST(req: NextRequest) {
   if (files) {
     for (let i = 0; i < files.length; i++) {
       const file = files[i]
-      console.log('file.name: ', file.name)
       const filePath = await saveFile(file)
-      console.log('filePath', filePath)
 
       const image = await prisma.image.create({
         data: {
