@@ -27,43 +27,51 @@ export default function HeroFilters() {
       ...provided,
       backgroundColor: 'white',
       color: 'grey.800',
+      borderRadius: '10px',
     }),
   }
+  const operationTypeValue = filterParams.operationType
+    ? {
+        label: OPERATION_TYPES_OPTIONS.find(
+          type => type.value === filterParams.operationType,
+        )?.label,
+        value: filterParams.operationType,
+      }
+    : null
+  const propertyTypeValue = filterParams.propertyType
+    ? {
+        label: PROPERTY_TYPES_OPTIONS.find(
+          type => type.value === filterParams.propertyType,
+        )?.label,
+        value: filterParams.propertyType,
+      }
+    : null
 
   return (
-    <HStack>
-      <FormControl>
+    <HStack w={'100%'}>
+      <FormControl flex={'2'}>
         <Select
           name="operationType"
-          value={{
-            label: OPERATION_TYPES_OPTIONS.find(
-              type => type.value === filterParams.operationType,
-            )?.label,
-            value: filterParams.operationType,
-          }}
+          value={operationTypeValue}
+          placeholder="Select Operation Type"
           options={OPERATION_TYPES_OPTIONS}
           onChange={handleSelectOperationTypeChange}
-          size={'sm'}
+          size={'md'}
           chakraStyles={customStyles}
-          placeholder="Select Operation Type"
         />
       </FormControl>
-      <FormControl>
+      <FormControl flex={'2'}>
         <Select
           name="propertyType"
-          value={{
-            label: PROPERTY_TYPES_OPTIONS.find(
-              type => type.value === filterParams.propertyType,
-            )?.label,
-            value: filterParams.propertyType,
-          }}
+          value={propertyTypeValue}
+          placeholder="Select Property Type"
           options={PROPERTY_TYPES_OPTIONS}
           chakraStyles={customStyles}
           onChange={handleSelectPropertyTypeChange}
-          size={'sm'}
+          size={'md'}
         />
       </FormControl>
-      <Link href={`/properties${queryString && '?' + queryString}`}>
+      <Link href={`/properties${queryString && '?' + queryString}`} flex={'1'}>
         <Button>Search Properties</Button>
       </Link>
     </HStack>
