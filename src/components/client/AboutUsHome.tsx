@@ -47,7 +47,7 @@ const Counter = ({
   )
 }
 
-const AboutUs = () => {
+const AboutUsHome = () => {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -97,4 +97,4 @@ const AboutUs = () => {
   )
 }
 
-export default AboutUs
+export default AboutUsHome

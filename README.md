@@ -27,11 +27,9 @@ TRPC?
       fast search properties bar                - done
       featured properties                       - done
       ** see https://domusbienesraices.com.ar/ for cards design
-      About us section                          - 
-            - right lorem ipsim 
-            - left background image full width with numbers over it about sell rents
-            - number of people who trusts us
-      contact us check reynoso bienes raices    - 
+      About us section                          - done
+      contact us check reynoso bienes raices    - done
+      blog entries                              - done
       footer w/newsletter                       - 
       copyright                                 - done
 - [ x ] Pages:
@@ -45,6 +43,7 @@ TRPC?
 - [ x ] Add footer on layout
 - [ x ] Remove global container and add localized container by sections
       header, footer
+- [ ] Add blog post pages, and featured images
 - [ ] Refactor to get queryParams in /properties
 - [ ] Add whatsapp icon on layout with chat to send
 - [ ] Define User prisma model
