@@ -1,66 +1,77 @@
 'use client'
 
-import { Box, Modal, ModalContent, ModalOverlay } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { Image } from '@chakra-ui/react'
-import { ArrowBackIcon, ArrowForwardIcon, CloseIcon } from "@chakra-ui/icons";
-
+import { Box, Modal, ModalContent, ModalOverlay, Image } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
+import { ArrowBackIcon, ArrowForwardIcon, CloseIcon } from '@chakra-ui/icons'
 
 export const ImageGallery = ({
   images,
   isOpen,
   onClose,
-  transitionDuration = 300 // default transition duration in milliseconds
+  transitionDuration = 300, // default transition duration in milliseconds
 }: ImageGalleryProps) => {
   const [currentImageIdx, setCurrentImageIdx] = useState<number>(0)
-  const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
+  const [isTransitioning, setIsTransitioning] = useState<boolean>(false)
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "ArrowRight") {
-        handleClickNext();
-      } else if (event.key === "ArrowLeft") {
-        handleClickPrevious();
+      if (event.key === 'ArrowRight') {
+        handleClickNext()
+      } else if (event.key === 'ArrowLeft') {
+        handleClickPrevious()
       }
-    };
+    }
 
-    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown)
 
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [currentImageIdx]);
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [currentImageIdx])
 
   const changeImage = (newIdx: number) => {
-    setIsTransitioning(true); // Start fading out
+    setIsTransitioning(true) // Start fading out
 
     setTimeout(() => {
-      setCurrentImageIdx(newIdx); // Change the image after half of the transition duration
+      setCurrentImageIdx(newIdx) // Change the image after half of the transition duration
 
       setTimeout(() => {
-        setIsTransitioning(false); // Start fading in
-      }, transitionDuration / 2);
-
-    }, transitionDuration / 2);
-  };
+        setIsTransitioning(false) // Start fading in
+      }, transitionDuration / 2)
+    }, transitionDuration / 2)
+  }
 
   const handleClickNext = () => {
-    const nextIdx = currentImageIdx + 1 >= images.length ? 0 : currentImageIdx + 1;
-    changeImage(nextIdx);
-  };
+    const nextIdx =
+      currentImageIdx + 1 >= images.length ? 0 : currentImageIdx + 1
+    changeImage(nextIdx)
+  }
 
   const handleClickPrevious = () => {
-    const prevIdx = currentImageIdx - 1 < 0 ? images.length - 1 : currentImageIdx - 1;
-    changeImage(prevIdx);
-  };
+    const prevIdx =
+      currentImageIdx - 1 < 0 ? images.length - 1 : currentImageIdx - 1
+    changeImage(prevIdx)
+  }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} onEsc={onClose} size='full' scrollBehavior="inside">
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      onEsc={onClose}
+      size="full"
+      scrollBehavior="inside"
+    >
       <ModalOverlay />
       <ModalContent>
         <Box position={'relative'} maxH={'100%'} w={'100%'} overflow={'hidden'}>
           {images.map((image, idx) => (
-            <Box position="relative" key={image.id} boxSize="100%" overflow={'hidden'} display={'grid'}>
+            <Box
+              position="relative"
+              key={image.id}
+              boxSize="100%"
+              overflow={'hidden'}
+              display={'grid'}
+            >
               <Image
                 alt={image.caption}
                 src={image.url}
@@ -75,13 +86,30 @@ export const ImageGallery = ({
               />
             </Box>
           ))}
-          <Box position={'absolute'} top={'50%'} left={'50px'} translateX={'-50%'} onClick={handleClickPrevious}>
+          <Box
+            position={'absolute'}
+            top={'50%'}
+            left={'50px'}
+            translateX={'-50%'}
+            onClick={handleClickPrevious}
+          >
             <ArrowBackIcon boxSize={'50px'} />
           </Box>
-          <Box position={'absolute'} top={'50%'} right={'50px'} translateX={'-50%'} onClick={handleClickNext}>
+          <Box
+            position={'absolute'}
+            top={'50%'}
+            right={'50px'}
+            translateX={'-50%'}
+            onClick={handleClickNext}
+          >
             <ArrowForwardIcon boxSize={'50px'} />
           </Box>
-          <Box position={'absolute'} top={'20px'} right={'20px'} onClick={onClose}>
+          <Box
+            position={'absolute'}
+            top={'20px'}
+            right={'20px'}
+            onClick={onClose}
+          >
             <CloseIcon />
           </Box>
         </Box>
@@ -91,16 +119,16 @@ export const ImageGallery = ({
 }
 
 export interface ImageGalleryProps {
-  images: Image[]
+  images: TImage[]
   isOpen: boolean
   onClose: () => void
   transitionDuration?: number
 }
 
-export type Image = {
-  id: number;
-  filename: string;
-  url: string;
-  caption: string;
-  order: number;
+export type TImage = {
+  id: number
+  filename: string
+  url: string
+  caption: string
+  order: number
 }

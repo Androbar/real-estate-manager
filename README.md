@@ -45,15 +45,17 @@ TRPC?
       header, footer
 - [ x ] Add blog post pages, and featured images
 - [ x ] Refactor to get queryParams in /properties
-- [ ] Change price range to two inputs instead of a bar
-- [ ] Add whatsapp icon on layout with chat to send
-- [ ] Define User prisma model
-- [ ] Add users login (with third party) - store in context
+- [ x ] Change price range to two inputs instead of a bar
+
+- [ x ] Define User prisma model
+- [ ] Add users login (with third party)
       * create a key to use before sign in so people doesn't sign
-- [ ] Add user dashboard for user properties management
-- [ ] Add login for clients
+- [ ] add logout and
+- [ ] Add user dashboard for user properties management / add dashboard button
+- [ x ] Add login for clients
 - [ ] Save contact form in pgadmin, add google check, add contact list in backend for client
 - [ ] Save search, bookmark properties, on local storage
 - [ ] Email notifications (only hook to send at midnight)
 
-
+- [ ] Fix featured properties big card
+- [ ] Add 20 properties

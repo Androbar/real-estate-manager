@@ -77,7 +77,7 @@ export function Header() {
             fontSize={'sm'}
             fontWeight={400}
             variant={'link'}
-            href={'#'}
+            href={'/login'}
           >
             Sign In
           </Button>
@@ -88,7 +88,7 @@ export function Header() {
             fontWeight={600}
             color={'white'}
             bg={'pink.400'}
-            href={'#'}
+            href={'/signup'}
             _hover={{
               bg: 'pink.300',
             }}
