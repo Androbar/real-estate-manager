@@ -1,3 +1,5 @@
+'use client'
+
 import { type ChangeEvent, useCallback, useEffect, useState } from 'react'
 import {
   Box,
@@ -19,12 +21,13 @@ import { Select } from 'chakra-react-select'
 import { formatNumber } from '@/utils/utils'
 import type { FilterParams, SelectOption } from '@/types/properties'
 import { OPERATION_TYPES_OPTIONS, PROPERTY_TYPES_OPTIONS } from '@/constants'
-
+import { useRouter } from 'next/navigation'
 export type PropertiesFilterProps = {
   filterParams: FilterParams
   setFilterParams: (newParams: Partial<FilterParams>) => void
   maxPrice?: number
   maxSize?: number
+  queryString?: string
 }
 
 export const PropertiesFilter = ({
@@ -32,9 +35,15 @@ export const PropertiesFilter = ({
   setFilterParams,
   maxPrice = 1000000,
   maxSize = 1000,
+  queryString = '',
 }: PropertiesFilterProps) => {
   const [priceRange, setPriceRange] = useState([0, maxPrice])
   const [sizeRange, setSizeRange] = useState([0, maxSize])
+  const router = useRouter()
+
+  useEffect(() => {
+    router.push(`?${queryString}`, { scroll: false })
+  }, [queryString])
 
   const handleFilterChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -171,8 +180,8 @@ export const PropertiesFilter = ({
           <FormControl>
             <FormLabel>Bedrooms</FormLabel>
             <Input
-              name="bedrooms"
-              value={filterParams.bedrooms}
+              name="rooms"
+              value={filterParams.rooms}
               onChange={handleFilterChange}
             />
           </FormControl>

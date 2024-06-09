@@ -3,27 +3,37 @@
 import { PropertiesFilter } from '@/components/PropertiesFilter'
 import { PropertiesList } from '@/components/PropertyList'
 import { Container, Grid, GridItem } from '@chakra-ui/react'
-import { useSearchParams } from 'next/navigation'
 import { PropertyListMap } from '../PropertyListMap'
 import type { Property } from '@prisma/client'
 import { usePropertiesFilterParams } from '@/hooks/useFilteredProperties'
+import type { SearchParams } from '@/types/properties'
 
 const PropertiesPage = ({
   maxPrice = 1000000,
   maxSize = 1000,
+  searchParams,
 }: {
   maxPrice?: number
   maxSize?: number
+  searchParams?: SearchParams
 }) => {
   const defaultFilterParams = {
     propertyType: '',
     operationType: '',
   }
-  const { filterParams, setFilterParams, properties, isLoading, isError } =
-    usePropertiesFilterParams(defaultFilterParams)
 
-  const searchParams = useSearchParams()
-  const isMapView = searchParams.get('map') === 'true'
+  const {
+    filterParams,
+    setFilterParams,
+    properties,
+    isLoading,
+    isError,
+    queryString,
+  } = usePropertiesFilterParams(searchParams || defaultFilterParams)
+
+  // const searchParams = useSearchParams()
+  // const isMapView = searchParams.get('map') === 'true'
+  const isMapView = false
 
   return (
     <Container maxW="6xl">
@@ -34,6 +44,7 @@ const PropertiesPage = ({
             setFilterParams={setFilterParams}
             maxPrice={maxPrice}
             maxSize={maxSize}
+            queryString={queryString}
           />
         </GridItem>
         <GridItem colSpan={9}>

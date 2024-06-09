@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
   const operationType = request.nextUrl.searchParams.get('operationType')
   const sizeMin = request.nextUrl.searchParams.get('sizeMin')
   const sizeMax = request.nextUrl.searchParams.get('sizeMax')
-  const bedrooms = request.nextUrl.searchParams.get('bedrooms')
+  const rooms = request.nextUrl.searchParams.get('rooms')
   const bathrooms = request.nextUrl.searchParams.get('bathrooms')
 
   const priceQuery =
@@ -54,7 +54,7 @@ export async function GET(request: NextRequest) {
       ...(typeQuery && { type: typeQuery }),
       ...(operationTypeQuery && { operationType: operationTypeQuery }),
       areaCovered: { ...sizeQuery },
-      ...(bedrooms && { bedrooms: parseInt(bedrooms) }),
+      ...(rooms && { rooms: parseInt(rooms) }),
       ...(bathrooms && { bathrooms: parseInt(bathrooms) }),
     },
   })

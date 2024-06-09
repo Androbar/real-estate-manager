@@ -44,7 +44,8 @@ TRPC?
 - [ x ] Remove global container and add localized container by sections
       header, footer
 - [ x ] Add blog post pages, and featured images
-- [ ] Refactor to get queryParams in /properties
+- [ x ] Refactor to get queryParams in /properties
+- [ ] Change price range to two inputs instead of a bar
 - [ ] Add whatsapp icon on layout with chat to send
 - [ ] Define User prisma model
 - [ ] Add users login (with third party) - store in context

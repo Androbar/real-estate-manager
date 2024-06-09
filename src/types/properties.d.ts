@@ -5,8 +5,12 @@ export type FilterParams = {
   operationType?: string
   sizeMin?: string
   sizeMax?: string
-  bedrooms?: string
+  rooms?: string
   bathrooms?: string
+}
+
+export type SearchParams = {
+  [K in keyof FilterParams]?: string
 }
 
 export type SelectOption = {
