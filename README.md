@@ -50,9 +50,10 @@ TRPC?
 - [ x ] Define User prisma model
 - [ ] Add users login (with third party)
       * add an env variable to allow signup and login with 3rd party    - done
-      * make login and sign in pretty, add links to each other          - 
-- [ ] add logout and
+      * make login and sign in pretty, add links to each other          - done
+- [ x ] add logout
 - [ ] Add user dashboard for user properties management / add dashboard button
+      * view comments
 - [ x ] Add login for clients
 - [ ] Save contact form in pgadmin, add google check, add contact list in backend for client
 - [ ] Save search, bookmark properties, on local storage
