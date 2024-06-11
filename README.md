@@ -19,7 +19,7 @@ TRPC?
 - [ ] Add upload/edit/delete(soft) property page
       upload                                    - 
       edit                                      - done
-      delete                                    - 
+      delete                                    - done
       change location to long lat in db         - 
       Then adapt all images and set them for each property and in the code
 - [ x ] Build home page
@@ -52,12 +52,13 @@ TRPC?
       * add an env variable to allow signup and login with 3rd party    - done
       * make login and sign in pretty, add links to each other          - done
 - [ x ] add logout
-- [ ] Add user dashboard for user properties management / add dashboard button
+- [ x ] Add user dashboard for user properties management / add dashboard button
       * view comments
 - [ x ] Add login for clients
-- [ ] Save contact form in pgadmin, add google check, add contact list in backend for client
+- [ x ] Save contact form in pgadmin, add google check, add contact list in backend for client
 - [ ] Save search, bookmark properties, on local storage
-- [ ] Email notifications (only hook to send at midnight)
+
 
 - [ ] Fix featured properties big card
 - [ ] Add 20 properties
+- [ ] Remove newsletter footer on admin pages

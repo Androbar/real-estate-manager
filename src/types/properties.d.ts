@@ -1,3 +1,5 @@
+import type { Property, Contact } from '@prisma/client'
+
 export type FilterParams = {
   priceMin?: string
   priceMax?: string
@@ -16,4 +18,8 @@ export type SearchParams = {
 export type SelectOption = {
   value: string | undefined
   label: string | undefined
+}
+
+export interface PropertyWithContacts extends Property {
+  contacts: Contact[]
 }

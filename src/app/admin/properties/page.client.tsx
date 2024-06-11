@@ -11,26 +11,25 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import type { Property } from '@prisma/client'
 import DeleteModal from '@/components/client/DeleteModal'
 import type { ExtendedSession } from '@/types/auth'
 import { FaPlus } from 'react-icons/fa'
+import type { PropertyWithContacts } from '@/types/properties'
 
 export default function EditPropertiesClientPage({
   session,
   properties,
 }: {
   session: ExtendedSession
-  properties: Property[]
+  properties: PropertyWithContacts[]
 }) {
   const router = useRouter()
 
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [propertyToDelete, setPropertyToDelete] = useState<Property | null>(
-    null,
-  )
+  const [propertyToDelete, setPropertyToDelete] =
+    useState<PropertyWithContacts | null>(null)
 
-  const handleDelete = (property: Property) => {
+  const handleDelete = (property: PropertyWithContacts) => {
     setPropertyToDelete(property)
     onOpen()
   }
@@ -101,6 +100,13 @@ export default function EditPropertiesClientPage({
             {property.type}
           </GridItem>
           <GridItem display={'flex'} alignItems={'center'} gap={4} m={4}>
+            <Button
+              onClick={() => {
+                router.push(`/admin/properties/${property.id}/contacts`)
+              }}
+            >
+              Contacts ({property?.contacts?.length || 0})
+            </Button>
             <Button
               onClick={() => {
                 router.push(`/admin/properties/${property.id}`)

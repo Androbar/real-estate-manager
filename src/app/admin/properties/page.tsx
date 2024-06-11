@@ -12,6 +12,9 @@ export default async function EditPropertiesPage() {
     where: {
       ownerId: parseInt(session.user.id),
     },
+    include: {
+      contacts: true,
+    },
   })
 
   return <EditPropertiesClientPage session={session} properties={properties} />
