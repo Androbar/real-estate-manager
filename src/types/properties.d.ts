@@ -23,3 +23,8 @@ export type SelectOption = {
 export interface PropertyWithContacts extends Property {
   contacts: Contact[]
 }
+
+export interface BookmarkProperty {
+  id: string
+  title: string
+}

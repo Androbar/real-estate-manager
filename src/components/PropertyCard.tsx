@@ -1,4 +1,5 @@
 import { OPERATION_TYPES, PROPERTY_IMAGES, PROPERTY_TYPES } from '@/constants'
+import type { BookmarkProperty } from '@/types/properties'
 import { formatNumber } from '@/utils/utils'
 import {
   Card,
@@ -12,15 +13,24 @@ import {
   Divider,
   Box,
   Grid,
+  IconButton,
+  Tooltip,
 } from '@chakra-ui/react'
+import { FaBookmark, FaRegBookmark } from 'react-icons/fa'
 import type { Property } from '@prisma/client'
 
 export const PropertyCard = ({
   property,
   doubleSize,
+  isBookmarked,
+  addBookMark,
+  removeBookMark,
 }: {
   property: Property
   doubleSize?: boolean
+  isBookmarked?: boolean
+  addBookMark?: (item: BookmarkProperty) => void
+  removeBookMark?: (id: string) => void
 }) => {
   const image = PROPERTY_IMAGES[0]
   return (
@@ -54,6 +64,29 @@ export const PropertyCard = ({
                 h={'200px'}
                 objectFit={'cover'}
               />
+              <Box position={'absolute'} top={2} right={2} zIndex={1}>
+                <Tooltip
+                  label={
+                    isBookmarked ? 'Remove from Bookmark' : 'Add to Bookmark'
+                  }
+                >
+                  <IconButton
+                    aria-label={
+                      isBookmarked ? 'Remove from Bookmark' : 'Add to Bookmark'
+                    }
+                    icon={isBookmarked ? <FaBookmark /> : <FaRegBookmark />}
+                    onClick={
+                      isBookmarked
+                        ? () => removeBookMark?.(property.id.toString())
+                        : () =>
+                            addBookMark?.({
+                              id: property.id.toString(),
+                              title: property.name,
+                            })
+                    }
+                  />
+                </Tooltip>
+              </Box>
               <Box
                 position={'absolute'}
                 bottom={0}
@@ -86,7 +119,6 @@ export const PropertyCard = ({
               {property.address} - {property.city}
             </Text>
             <HStack alignItems={'center'} gap={1}>
-              {/* <MdOutlineAttachMoney size={25} /> */}
               <Text>
                 $ {formatNumber(property.price)}
                 {property.price &&

@@ -48,7 +48,7 @@ TRPC?
 - [ x ] Change price range to two inputs instead of a bar
 
 - [ x ] Define User prisma model
-- [ ] Add users login (with third party)
+- [ x ] Add users login (with third party)
       * add an env variable to allow signup and login with 3rd party    - done
       * make login and sign in pretty, add links to each other          - done
 - [ x ] add logout
@@ -56,9 +56,17 @@ TRPC?
       * view comments
 - [ x ] Add login for clients
 - [ x ] Save contact form in pgadmin, add google check, add contact list in backend for client
-- [ ] Save search, bookmark properties, on local storage
+- [ x ] Bookmark properties, on local storage, available to anyone
 
 
+- [ ] Change name, add favicon
+- [ ] Add metadata
+- [ ] Add upload property
+- [ ] Add lorem ipsum contact page
+- [ ] Add lorem ipsum about use page
+- [ ] Add blog list page
+- [ ] Fix open street map in property
 - [ ] Fix featured properties big card
 - [ ] Add 20 properties
 - [ ] Remove newsletter footer on admin pages
+- [ ] Fix rent and buy links on main menu
