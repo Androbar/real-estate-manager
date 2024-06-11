@@ -49,7 +49,8 @@ TRPC?
 
 - [ x ] Define User prisma model
 - [ ] Add users login (with third party)
-      * create a key to use before sign in so people doesn't sign
+      * add an env variable to allow signup and login with 3rd party    - done
+      * make login and sign in pretty, add links to each other          - 
 - [ ] add logout and
 - [ ] Add user dashboard for user properties management / add dashboard button
 - [ x ] Add login for clients

@@ -16,6 +16,11 @@ import {
   useDisclosure,
   Link,
   Container,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider,
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import logo from '@/assets/logoipsum-286.svg'
@@ -25,8 +30,10 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from '@chakra-ui/icons'
+import type { ExtendedSession } from '@/types/auth'
+import { signOut } from 'next-auth/react'
 
-export function Header() {
+export function Header({ session }: { session: ExtendedSession | null }) {
   const { isOpen, onToggle } = useDisclosure()
 
   return (
@@ -72,29 +79,60 @@ export function Header() {
           direction={'row'}
           spacing={6}
         >
-          <Button
-            as={'a'}
-            fontSize={'sm'}
-            fontWeight={400}
-            variant={'link'}
-            href={'/login'}
-          >
-            Sign In
-          </Button>
-          <Button
-            as={'a'}
-            display={{ base: 'none', md: 'inline-flex' }}
-            fontSize={'sm'}
-            fontWeight={600}
-            color={'white'}
-            bg={'pink.400'}
-            href={'/signup'}
-            _hover={{
-              bg: 'pink.300',
-            }}
-          >
-            Sign Up
-          </Button>
+          {session ? (
+            <>
+              <Menu>
+                <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                  Menu
+                </MenuButton>
+                <MenuList>
+                  <MenuItem as={Link} href="/admin/properties">
+                    My properties
+                  </MenuItem>
+                  <MenuItem as={Link} href="/link2">
+                    Link 2
+                  </MenuItem>
+                  <MenuItem as={Link} href="/link3">
+                    Link 3
+                  </MenuItem>
+                  <MenuDivider />
+                  <MenuItem
+                    onClick={async () => {
+                      await signOut()
+                    }}
+                  >
+                    Sign Out
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            </>
+          ) : (
+            <>
+              <Button
+                as={'a'}
+                fontSize={'sm'}
+                fontWeight={400}
+                variant={'link'}
+                href={'/login'}
+              >
+                Sign In
+              </Button>
+              <Button
+                as={'a'}
+                display={{ base: 'none', md: 'inline-flex' }}
+                fontSize={'sm'}
+                fontWeight={600}
+                color={'white'}
+                bg={'pink.400'}
+                href={'/signup'}
+                _hover={{
+                  bg: 'pink.300',
+                }}
+              >
+                Sign Up
+              </Button>
+            </>
+          )}
         </Stack>
       </Flex>
 

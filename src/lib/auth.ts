@@ -1,20 +1,11 @@
-import type { AuthOptions, Session, User } from 'next-auth'
+import type { AuthOptions } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import prisma from '@/lib/prismaClient' // Make sure you have a prisma client setup
 import bcrypt from 'bcryptjs'
+import type { ExtendedSession, ExtendedUser } from '@/types/auth'
 
-interface ExtendedUser extends User {
-  role: string
-}
-
-interface ExtendedSession extends Session {
-  user: {
-    id: string
-    role: string
-  } & Session['user']
-}
 const authOptions: AuthOptions = {
   providers: [
     GoogleProvider({
