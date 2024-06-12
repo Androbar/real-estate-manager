@@ -30,6 +30,7 @@ import {
   Tooltip,
 } from '@chakra-ui/react'
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons'
+import { defaultValues } from '@/data/defaultProperty'
 
 type PropertyImagesWithImage = {
   image: Omit<TypeImage, 'id' | 'createdAt'> & { file?: FileList }
@@ -39,12 +40,16 @@ type CombinedProperty = {
   propertyImages: PropertyImagesWithImage[]
 } & Property
 
+type CombinedPropertyWithOptionalId = Omit<CombinedProperty, 'id'> & {
+  id?: number
+}
+
 export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
   const [isAddingImage, setIsAddingImage] = useState(false)
   // TODO: replace console log
   console.log(setIsAddingImage)
-
-  const methods = useForm({ defaultValues: property })
+  console.log(property)
+  const methods = useForm({ defaultValues: property || defaultValues })
   const {
     register,
     handleSubmit,
@@ -60,7 +65,7 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
     ? propertyImages.fields[0].order
     : 0
 
-  const onSubmit = async (data: CombinedProperty) => {
+  const onSubmit = async (data: CombinedPropertyWithOptionalId) => {
     const formData = new FormData()
     // NOTE: here I have to loop property images, and set a way to link property images
     // to the uploaded file urls.
@@ -74,7 +79,9 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
     }
 
     formData.set('body', JSON.stringify(data))
-    const url = `/api/admin/properties/${data.id}`
+    const url = data.id
+      ? `/api/admin/properties/${data.id}`
+      : '/api/admin/properties'
     const test = await fetch(url, {
       method: 'POST',
       body: formData,
@@ -411,7 +418,7 @@ const PropertyImageForm = ({
   const {
     register,
     formState: { errors },
-    getValues,
+    watch,
   } = useFormContext()
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -429,7 +436,8 @@ const PropertyImageForm = ({
     }
   }
 
-  const imageUrl = getValues(`propertyImages.${index}.image.url`)
+  const imageUrl = watch(`propertyImages.${index}.image.url`)
+  const imageThumbnail = imageUrl || thumbnail
 
   return (
     <>
@@ -494,7 +502,7 @@ const PropertyImageForm = ({
         </GridItem>
         <GridItem colSpan={2}>
           {/* TODO: need to learn how to develop with images */}
-          {(imageUrl ?? thumbnail) && <Image src={imageUrl ?? thumbnail} />}
+          {imageThumbnail && <Image src={imageThumbnail} />}
         </GridItem>
         <GridItem colSpan={2}>
           <HStack>

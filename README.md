@@ -57,16 +57,20 @@ TRPC?
 - [ x ] Add login for clients
 - [ x ] Save contact form in pgadmin, add google check, add contact list in backend for client
 - [ x ] Bookmark properties, on local storage, available to anyone
+- [ x ] Change name, add favicon
 
-
-- [ ] Change name, add favicon
-- [ ] Add metadata
-- [ ] Add upload property
+- [ x ] Add upload property
+- [ x ] Fix thumbnail
+- [ x ] Fix path save for image (use /uploads/etc, not full pc path)
+- [ x ] When uploading image with same name, try to write -1,-2,etc
+- [ ] Fix form longitude and latitude save and load
+- [ ] Use actual uploaded images for properties (if no images, load default)
 - [ ] Add lorem ipsum contact page
 - [ ] Add lorem ipsum about use page
 - [ ] Add blog list page
 - [ ] Fix open street map in property
 - [ ] Fix featured properties big card
-- [ ] Add 20 properties
 - [ ] Remove newsletter footer on admin pages
 - [ ] Fix rent and buy links on main menu
+- [ ] Add 20 properties
+- [ ] Add metadata
