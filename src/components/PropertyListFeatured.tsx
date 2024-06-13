@@ -34,6 +34,7 @@ export const PropertiesListFeatured = ({
               colSpan={index === 0 ? 6 : 3}
             >
               <PropertyCard
+                doubleSize={index === 0}
                 property={property}
                 isBookmarked={isBookmarked}
                 addBookMark={addBookmark}

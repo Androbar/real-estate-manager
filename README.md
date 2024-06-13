@@ -71,8 +71,9 @@ TRPC?
 - [ x ] Add blog list page
 - [ x ] Fix rent and buy links on main menu
 - [ x ] Remove newsletter footer on admin pages
+- [ x ] Fix featured properties big card
 - [ ] Fix open street map in property
-- [ ] Fix featured properties big card
+- [ ] Responsiveness
 - [ ] Add 20 properties
 - [ ] Use actual uploaded images for properties (if no images, load default)
 - [ ] Add metadata

@@ -47,70 +47,57 @@ export const PropertyCard = ({
         }}
       >
         <CardBody p={0}>
-          {doubleSize ? (
-            <Box position={'relative'} padding={'0.75%'}>
-              <Image
-                alt={image.caption}
-                src={image.url}
-                position={'absolute'}
-              />
-            </Box>
-          ) : (
-            <Box position={'relative'}>
-              <Image
-                alt={image.caption}
-                src={image.url}
-                w={'100%'}
-                h={'200px'}
-                objectFit={'cover'}
-              />
-              <Box position={'absolute'} top={2} right={2} zIndex={1}>
-                <Tooltip
-                  label={
+          <Box position={'relative'}>
+            <Image
+              alt={image.caption}
+              src={image.url}
+              w={'100%'}
+              h={doubleSize ? '600px' : '200px'}
+              objectFit={'cover'}
+            />
+            <Box position={'absolute'} top={2} right={2} zIndex={1}>
+              <Tooltip
+                label={
+                  isBookmarked ? 'Remove from Bookmark' : 'Add to Bookmark'
+                }
+              >
+                <IconButton
+                  aria-label={
                     isBookmarked ? 'Remove from Bookmark' : 'Add to Bookmark'
                   }
-                >
-                  <IconButton
-                    aria-label={
-                      isBookmarked ? 'Remove from Bookmark' : 'Add to Bookmark'
-                    }
-                    icon={isBookmarked ? <FaBookmark /> : <FaRegBookmark />}
-                    onClick={
-                      isBookmarked
-                        ? () => removeBookMark?.(property.id.toString())
-                        : () =>
-                            addBookMark?.({
-                              id: property.id.toString(),
-                              title: property.name,
-                            })
-                    }
-                  />
-                </Tooltip>
-              </Box>
-              <Box
-                position={'absolute'}
-                bottom={0}
-                right={0}
-                w={'100%'}
-                zIndex={1}
-              >
-                <HStack gap={2} justifyContent={'flex-end'} p={1}>
-                  <Badge
-                    colorScheme={OPERATION_TYPES[property.operationType].color}
-                    p={1}
-                  >
-                    {property.operationType}
-                  </Badge>
-                  <Badge
-                    colorScheme={PROPERTY_TYPES[property.type].color}
-                    p={1}
-                  >
-                    {property.type}
-                  </Badge>
-                </HStack>
-              </Box>
+                  icon={isBookmarked ? <FaBookmark /> : <FaRegBookmark />}
+                  onClick={
+                    isBookmarked
+                      ? () => removeBookMark?.(property.id.toString())
+                      : () =>
+                          addBookMark?.({
+                            id: property.id.toString(),
+                            title: property.name,
+                          })
+                  }
+                />
+              </Tooltip>
             </Box>
-          )}
+            <Box
+              position={'absolute'}
+              bottom={0}
+              right={0}
+              w={'100%'}
+              zIndex={1}
+            >
+              <HStack gap={2} justifyContent={'flex-end'} p={1}>
+                <Badge
+                  colorScheme={OPERATION_TYPES[property.operationType].color}
+                  p={1}
+                >
+                  {property.operationType}
+                </Badge>
+                <Badge colorScheme={PROPERTY_TYPES[property.type].color} p={1}>
+                  {property.type}
+                </Badge>
+              </HStack>
+            </Box>
+          </Box>
           <Box p={3}>
             <Heading size="sm" mt={3} noOfLines={1}>
               {property.name}

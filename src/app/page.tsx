@@ -17,7 +17,7 @@ export default async function Home() {
   return (
     <main className={styles.main}>
       <Hero />
-      <Container maxW="6xl">
+      <Container maxW="6xl" py={6}>
         <PropertiesListFeatured properties={properties || []} />
       </Container>
       <AboutUsHome />
