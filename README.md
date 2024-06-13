@@ -63,8 +63,9 @@ TRPC?
 - [ x ] Fix thumbnail
 - [ x ] Fix path save for image (use /uploads/etc, not full pc path)
 - [ x ] When uploading image with same name, try to write -1,-2,etc
-- [ ] Fix form longitude and latitude save and load
-- [ ] Use actual uploaded images for properties (if no images, load default)
+- [ x ] Fix form longitude and latitude save and load
+- [ x ] Editable Form, switch operation type and property type to selects
+- [ ] On edit or create, disable submission add success popup
 - [ ] Add lorem ipsum contact page
 - [ ] Add lorem ipsum about use page
 - [ ] Add blog list page
@@ -73,4 +74,5 @@ TRPC?
 - [ ] Remove newsletter footer on admin pages
 - [ ] Fix rent and buy links on main menu
 - [ ] Add 20 properties
+- [ ] Use actual uploaded images for properties (if no images, load default)
 - [ ] Add metadata

@@ -41,19 +41,27 @@ export const OPERATION_TYPES = {
   },
 }
 
-export const OPERATION_TYPES_OPTIONS = [
-  { value: '', label: 'All Types' },
+export const BASE_OPERATION_TYPE_OPTIONS = [
   { value: 'SALE', label: 'Sale' },
   { value: 'RENT', label: 'Rent' },
 ] as const
 
-export const PROPERTY_TYPES_OPTIONS = [
-  { value: '', label: 'All Types' },
+export const BASE_PROPERTY_TYPES_OPTIONS = [
   { value: 'HOUSE', label: 'House' },
   { value: 'APARTMENT', label: 'Apartment' },
   { value: 'OFFICE', label: 'Office' },
   { value: 'WAREHOUSE', label: 'Warehouse' },
   { value: 'LAND', label: 'Land' },
+] as const
+
+export const OPERATION_TYPES_OPTIONS = [
+  { value: '', label: 'All Types' },
+  ...BASE_OPERATION_TYPE_OPTIONS,
+] as const
+
+export const PROPERTY_TYPES_OPTIONS = [
+  { value: '', label: 'All Types' },
+  ...BASE_PROPERTY_TYPES_OPTIONS,
 ] as const
 
 export const PROPERTY_IMAGES = [

@@ -2,6 +2,7 @@ import { PropertyForm } from '@/components/client/EditPropertyForm.client'
 import { getServerSideSession } from '@/hoc/server-auth'
 import prisma from '@/lib/prismaClient'
 import type { ExtendedSession } from '@/types/auth'
+import { Container } from '@chakra-ui/react'
 
 export default async function EditPropertyPage({
   params,
@@ -32,11 +33,11 @@ export default async function EditPropertyPage({
   if (property === null || property.ownerId !== parseInt(session.user?.id)) {
     return <div>Property not found</div>
   }
-  console.log('session?.user', session?.user)
+
   return (
-    <>
+    <Container maxW="6xl">
       <PropertyForm property={property} />
-    </>
+    </Container>
   )
 }
 

@@ -7,6 +7,7 @@ import {
 } from '@prisma/client'
 
 import {
+  Controller,
   FormProvider,
   useFieldArray,
   useForm,
@@ -28,9 +29,14 @@ import {
   GridItem,
   Image,
   Tooltip,
+  Select,
 } from '@chakra-ui/react'
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons'
 import { defaultValues } from '@/data/defaultProperty'
+import {
+  BASE_OPERATION_TYPE_OPTIONS,
+  BASE_PROPERTY_TYPES_OPTIONS,
+} from '@/constants'
 
 type PropertyImagesWithImage = {
   image: Omit<TypeImage, 'id' | 'createdAt'> & { file?: FileList }
@@ -247,21 +253,35 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
         <HStack pb={5}>
           <FormControl isInvalid={!!errors.operationType}>
             <FormLabel htmlFor="operationType">Operation Type</FormLabel>
-            <Input
-              id="operationType"
-              // disabled={mutation.isLoading}
-              placeholder="Operation Type"
-              {...register('operationType')}
+            <Controller
+              name="operationType"
+              control={control}
+              render={({ field }) => (
+                <Select {...field} placeholder="Select option">
+                  {BASE_OPERATION_TYPE_OPTIONS.map(option => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </Select>
+              )}
             />
             <FormErrorMessage>{errors.operationType?.message}</FormErrorMessage>
           </FormControl>
           <FormControl isInvalid={!!errors.type}>
             <FormLabel htmlFor="type">Property Type</FormLabel>
-            <Input
-              id="type"
-              // disabled={mutation.isLoading}
-              placeholder="Property Type"
-              {...register('type')}
+            <Controller
+              name="type"
+              control={control}
+              render={({ field }) => (
+                <Select {...field} placeholder="Select option">
+                  {BASE_PROPERTY_TYPES_OPTIONS.map(option => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </Select>
+              )}
             />
             <FormErrorMessage>{errors.type?.message}</FormErrorMessage>
           </FormControl>
