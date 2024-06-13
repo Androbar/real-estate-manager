@@ -30,6 +30,7 @@ import {
   Image,
   Tooltip,
   Select,
+  useToast,
 } from '@chakra-ui/react'
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons'
 import { defaultValues } from '@/data/defaultProperty'
@@ -52,9 +53,11 @@ type CombinedPropertyWithOptionalId = Omit<CombinedProperty, 'id'> & {
 
 export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
   const [isAddingImage, setIsAddingImage] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   // TODO: replace console log
   console.log(setIsAddingImage)
   console.log(property)
+  const toast = useToast()
   const methods = useForm({ defaultValues: property || defaultValues })
   const {
     register,
@@ -72,6 +75,7 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
     : 0
 
   const onSubmit = async (data: CombinedPropertyWithOptionalId) => {
+    setIsSubmitting(true)
     const formData = new FormData()
     // NOTE: here I have to loop property images, and set a way to link property images
     // to the uploaded file urls.
@@ -88,11 +92,36 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
     const url = data.id
       ? `/api/admin/properties/${data.id}`
       : '/api/admin/properties'
-    const test = await fetch(url, {
-      method: 'POST',
-      body: formData,
-    })
-    console.log(test)
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        body: formData,
+      })
+      console.log(response)
+      if (response.ok) {
+        toast({
+          title: 'Property saved.',
+          description: 'The property was successfully saved.',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        })
+      } else {
+        throw new Error('Failed to save property')
+      }
+    } catch (error) {
+      console.log(error)
+      toast({
+        title: 'Property not saved.',
+        description: 'The property was not saved.',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const onSubmita = async (data: Property) => {
@@ -411,7 +440,9 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
             </Button>
           )}
         </VStack>
-        <Button type="submit">Submit</Button>
+        <Button type="submit" disabled={isSubmitting} isLoading={isSubmitting}>
+          Submit
+        </Button>
       </form>
     </FormProvider>
   )
