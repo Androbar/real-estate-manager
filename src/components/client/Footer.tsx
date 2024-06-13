@@ -1,3 +1,4 @@
+'use client'
 import type { ReactNode } from 'react'
 import {
   Box,
@@ -12,7 +13,7 @@ import {
 } from '@chakra-ui/react'
 import { FaTwitter, FaYoutube, FaInstagram } from 'react-icons/fa'
 import Image from 'next/image'
-
+import { usePathname } from 'next/navigation'
 import AppStoreBadge from '@/assets/AppStoreBadge.svg'
 import PlayStoreBadge from '@/assets/PlayStoreBadge.svg'
 import NewsletterFooter from './NewsletterFooter'
@@ -58,9 +59,12 @@ const SocialButton = ({
 }
 
 export function Footer() {
+  const pathname = usePathname()
+
+  const isAdminPath = pathname.startsWith('/admin')
   return (
     <>
-      <NewsletterFooter />
+      {!isAdminPath && <NewsletterFooter />}
       <Box
         bg={useColorModeValue('gray.50', 'gray.900')}
         color={useColorModeValue('gray.700', 'gray.200')}

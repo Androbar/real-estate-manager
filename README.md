@@ -70,7 +70,7 @@ TRPC?
 - [ x ] Add lorem ipsum about use page
 - [ x ] Add blog list page
 - [ x ] Fix rent and buy links on main menu
-- [ ] Remove newsletter footer on admin pages
+- [ x ] Remove newsletter footer on admin pages
 - [ ] Fix open street map in property
 - [ ] Fix featured properties big card
 - [ ] Add 20 properties
