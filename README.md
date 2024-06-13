@@ -66,8 +66,8 @@ TRPC?
 - [ x ] Fix form longitude and latitude save and load
 - [ x ] Editable Form, switch operation type and property type to selects
 - [ x ] On edit or create, disable submission add success popup
-- [ ] Add lorem ipsum contact page
-- [ ] Add lorem ipsum about use page
+- [ x ] Add lorem ipsum contact page
+- [ x ] Add lorem ipsum about use page
 - [ ] Add blog list page
 - [ ] Fix open street map in property
 - [ ] Fix featured properties big card
