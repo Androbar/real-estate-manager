@@ -68,11 +68,12 @@ TRPC?
 - [ x ] On edit or create, disable submission add success popup
 - [ x ] Add lorem ipsum contact page
 - [ x ] Add lorem ipsum about use page
-- [ ] Add blog list page
+- [ x ] Add blog list page
+- [ x ] Fix rent and buy links on main menu
+- [ ] Remove newsletter footer on admin pages
 - [ ] Fix open street map in property
 - [ ] Fix featured properties big card
-- [ ] Remove newsletter footer on admin pages
-- [ ] Fix rent and buy links on main menu
 - [ ] Add 20 properties
 - [ ] Use actual uploaded images for properties (if no images, load default)
 - [ ] Add metadata
+

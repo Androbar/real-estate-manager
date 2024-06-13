@@ -308,7 +308,7 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   {
     label: 'Buy',
-    href: '/properties',
+    href: '/properties?operationType=SALE',
     children: [
       {
         label: 'Explore Design Work',
@@ -324,7 +324,7 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     label: 'Rent',
-    href: '/property',
+    href: '/properties?operationType=RENT',
     children: [
       {
         label: 'Job Board',
@@ -345,10 +345,6 @@ const NAV_ITEMS: NavItem[] = [
   {
     label: 'Blog',
     href: '/blog',
-  },
-  {
-    label: 'Posts',
-    href: '/posts',
   },
   {
     label: 'About Us',
