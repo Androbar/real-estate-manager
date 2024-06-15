@@ -27,11 +27,13 @@ export const PropertiesListFeatured = ({
             (bookmark: BookmarkProperty) =>
               parseInt(bookmark.id) === property.id,
           )
+          const rowSpan = index === 0 ? 2 : 1
+          const desktopColSpan = index === 0 ? 6 : 3
           return (
             <GridItem
               key={property.id}
-              rowSpan={index === 0 ? 2 : 1}
-              colSpan={index === 0 ? 6 : 3}
+              rowSpan={rowSpan}
+              colSpan={{ base: 12, lg: desktopColSpan }}
             >
               <PropertyCard
                 doubleSize={index === 0}

@@ -73,8 +73,17 @@ TRPC?
 - [ x ] Remove newsletter footer on admin pages
 - [ x ] Fix featured properties big card
 - [ x ] Fix open street map in property
-- [ ] Responsiveness
-- [ ] Add 20 properties
+- [ x ] Enable jsx - chakra ui assigns class differently so it doesn't work
+- [ x ] Responsiveness
+      https://v2.chakra-ui.com/docs/styled-system/responsive-styles
+- [ x ] Fix errors uploading multiple images
+- [ x ] Fix delete property
+- [ ] Add 20 properties 5 images per property 5*20 100images
+      donwload 100 images                 - done
+      ask chatgpt to create the data      - done
+      load it                             - 
+      all in salta, 10 7 3 per user       - 
 - [ ] Use actual uploaded images for properties (if no images, load default)
 - [ ] Add metadata
+- [ ] Fix js console errors
 

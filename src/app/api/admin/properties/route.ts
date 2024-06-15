@@ -4,10 +4,15 @@ import { format } from 'date-fns'
 import path from 'path'
 import prisma from '@/lib/prismaClient'
 import fs from 'fs'
+import { getServerSideSession } from '@/hoc/server-auth'
 
 export async function POST(req: NextRequest) {
   const form = await req.formData()
-
+  const session = await getServerSideSession()
+  if (!session) {
+    return NextResponse.redirect('/404')
+  }
+  const ownerId = parseInt(session.user.id)
   // I have to prepare the data for update the property and the files at the same times
   const property = JSON.parse(form.get('body') as string)
   const {
@@ -32,7 +37,6 @@ export async function POST(req: NextRequest) {
     propertyFacing,
     orientation,
     carport,
-    ownerId,
     availableAsOf,
     constructionYear,
     buildingCondition,
@@ -73,11 +77,12 @@ export async function POST(req: NextRequest) {
     floodZoneType,
     propertyImages,
   } = property
-
+  console.log(property)
   const slug = await generateUniqueSlug(name as string)
 
   const newProperty = await prisma.property.create({
     data: {
+      ownerId,
       name,
       slug,
       description,
@@ -100,7 +105,6 @@ export async function POST(req: NextRequest) {
       propertyFacing,
       orientation,
       carport: parseInt(carport as string),
-      ownerId,
       availableAsOf,
       constructionYear: parseInt(constructionYear as string),
       buildingCondition,

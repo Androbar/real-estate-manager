@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   type PropertyImages,
   type Property,
@@ -52,11 +52,8 @@ type CombinedPropertyWithOptionalId = Omit<CombinedProperty, 'id'> & {
 }
 
 export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
-  const [isAddingImage, setIsAddingImage] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  // TODO: replace console log
-  console.log(setIsAddingImage)
-  console.log(property)
+
   const toast = useToast()
   const methods = useForm({ defaultValues: property || defaultValues })
   const {
@@ -75,6 +72,7 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
     : 0
 
   const onSubmit = async (data: CombinedPropertyWithOptionalId) => {
+    console.log('submitting')
     setIsSubmitting(true)
     const formData = new FormData()
     // NOTE: here I have to loop property images, and set a way to link property images
@@ -94,11 +92,13 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
       : '/api/admin/properties'
 
     try {
+      console.log('sending request')
+
       const response = await fetch(url, {
         method: 'POST',
         body: formData,
       })
-      console.log(response)
+      console.log('response:', response)
       if (response.ok) {
         toast({
           title: 'Property saved.',
@@ -124,22 +124,22 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
     }
   }
 
-  const onSubmita = async (data: Property) => {
-    // create endpoint to update property, hook from react query
-    // FETCH TO /admin/properties/propertyid
-    const url = `/api/admin/properties/${data.id}`
-    const test = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-    console.log(test)
-    // create endpoint to create property
-  }
-  // TODO: replace console log
-  console.log(onSubmita)
+  // const onSubmita = async (data: Property) => {
+  //   // create endpoint to update property, hook from react query
+  //   // FETCH TO /admin/properties/propertyid
+  //   const url = `/api/admin/properties/${data.id}`
+  //   const test = await fetch(url, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(data),
+  //   })
+  //   console.log(test)
+  //   // create endpoint to create property
+  // }
+  // // TODO: replace console log
+  // console.log(onSubmita)
 
   const handleAddImageClick = () => {
     propertyImages.append({
@@ -158,11 +158,11 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
     propertyImages.remove(index)
   }
 
-  useEffect(() => {
-    propertyImages.fields.forEach(item => {
-      console.log(item.image)
-    })
-  }, [propertyImages])
+  // useEffect(() => {
+  //   propertyImages.fields.forEach(item => {
+  //     console.log(item.image)
+  //   })
+  // }, [propertyImages])
 
   return (
     <FormProvider {...methods}>
@@ -434,11 +434,9 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
               />
             )
           })}
-          {!isAddingImage && (
-            <Button colorScheme="green" onClick={handleAddImageClick}>
-              Add image
-            </Button>
-          )}
+          <Button colorScheme="green" onClick={handleAddImageClick}>
+            Add image
+          </Button>
         </VStack>
         <Button type="submit" disabled={isSubmitting} isLoading={isSubmitting}>
           Submit
@@ -489,7 +487,13 @@ const PropertyImageForm = ({
 
   const imageUrl = watch(`propertyImages.${index}.image.url`)
   const imageThumbnail = imageUrl || thumbnail
-
+  // console.log(errors.propertyImages)
+  // const fileProps = {
+  //   ...register(`propertyImages.${index}.image.file`, {
+  //     required: 'Please select a file',
+  //   }),
+  // }
+  // console.log('fileProps', fileProps)
   return (
     <>
       <Grid w="100%" h="100%" gap={2} gridTemplateColumns={'repeat(12, 1fr)'}>
@@ -507,7 +511,7 @@ const PropertyImageForm = ({
         gridTemplateColumns={'repeat(12, 1fr)'}
       >
         <GridItem colSpan={1}>
-          <FormControl isInvalid={!!errors.propertyImages}>
+          <FormControl>
             <Input
               id={`propertyImages.${index}.order`}
               // disabled={mutation.isLoading}
@@ -518,16 +522,14 @@ const PropertyImageForm = ({
           </FormControl>
         </GridItem>
         <GridItem colSpan={3}>
-          <FormControl isInvalid={!!errors.propertyImages}>
+          <FormControl>
             <Input
               id={`propertyImages.${index}.image.file`}
               // disabled={mutation.isLoading}
               placeholder="Filename"
               type="file"
               accept="image/*"
-              {...register(`propertyImages.${index}.image.file`, {
-                required: 'Please select a file',
-              })}
+              {...register(`propertyImages.${index}.image.file`)}
               disabled={imageUrl !== ''}
               onChange={event => {
                 handleFileChange(event)
@@ -541,7 +543,7 @@ const PropertyImageForm = ({
           </FormControl>
         </GridItem>
         <GridItem colSpan={4}>
-          <FormControl isInvalid={!!errors.propertyImages}>
+          <FormControl>
             <Input
               id={`propertyImages.${index}.image.caption`}
               // disabled={mutation.isLoading}

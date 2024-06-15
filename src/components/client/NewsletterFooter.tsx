@@ -1,12 +1,12 @@
 import {
   Container,
-  HStack,
   VStack,
   Heading,
   Input,
   Button,
   Box,
   Text,
+  Flex,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 
@@ -34,7 +34,12 @@ function NewsletterFooter() {
   return (
     <Box bg="gray.800" p={16}>
       <Container maxW={'6xl'} color={'gray.300'}>
-        <HStack align={'flex-start'} gap={6} alignItems={'flex-start'}>
+        <Flex
+          align={'flex-start'}
+          gap={6}
+          alignItems={'flex-start'}
+          direction={{ base: 'column', lg: 'row' }}
+        >
           <VStack gap={0} align={'flex-start'} flex={'2'}>
             <Heading as={'h4'} size={'lg'} p={0} m={0}>
               Subscribe to our newsletter
@@ -50,7 +55,7 @@ function NewsletterFooter() {
               and be the first to know about what&apos;s coming next.
             </Text>
           </VStack>
-          <VStack flex={'1'} pt={10}>
+          <VStack flex={'1'} pt={10} width={'100%'}>
             <Input
               placeholder={'Your email address'}
               value={email}
@@ -73,7 +78,7 @@ function NewsletterFooter() {
               </Button>
             )}
           </VStack>
-        </HStack>
+        </Flex>
       </Container>
     </Box>
   )

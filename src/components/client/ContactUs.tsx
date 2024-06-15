@@ -9,7 +9,6 @@ import {
   Textarea,
   Button,
   Text,
-  HStack,
 } from '@chakra-ui/react'
 
 const ContactUs = () => {
@@ -21,7 +20,7 @@ const ContactUs = () => {
   return (
     <Box bg="gray.800" py={16}>
       <Container maxW="6xl">
-        <Flex gap={6}>
+        <Flex gap={6} flexDirection={{ base: 'column', lg: 'row' }}>
           <Box flex="1">
             <Text color="white" fontSize="xl" fontWeight="bold">
               We&apos;ll get back to you as soon as possible!
@@ -33,7 +32,7 @@ const ContactUs = () => {
           </Box>
           <Box flex="1">
             <form onSubmit={onSubmit}>
-              <HStack>
+              <Flex direction={{ base: 'column', lg: 'row' }}>
                 <FormControl mb={4}>
                   <Input id="name" type="text" placeholder="Name" />
                 </FormControl>
@@ -43,15 +42,15 @@ const ContactUs = () => {
                 <FormControl mb={4}>
                   <Input id="phone" type="tel" placeholder="Phone" />
                 </FormControl>
-              </HStack>
-              <HStack>
+              </Flex>
+              <Flex direction={{ base: 'column', lg: 'row' }}>
                 <FormControl mb={4}>
                   <Input id="subject" type="text" placeholder="Subject" />
                 </FormControl>
                 <FormControl mb={4}>
                   <Textarea id="message" placeholder="Your message" rows={1} />
                 </FormControl>
-              </HStack>
+              </Flex>
               <Button colorScheme="green" type="submit">
                 Submit
               </Button>

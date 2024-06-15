@@ -3,7 +3,7 @@
 import { OPERATION_TYPES_OPTIONS, PROPERTY_TYPES_OPTIONS } from '@/constants'
 import { usePropertiesFilterParams } from '@/hooks/useFilteredProperties'
 import type { SelectOption } from '@/types/properties'
-import { Button, FormControl, HStack, Link } from '@chakra-ui/react'
+import { Button, Flex, FormControl, Link } from '@chakra-ui/react'
 import { Select, type ChakraStylesConfig } from 'chakra-react-select'
 
 export default function HeroFilters() {
@@ -48,7 +48,12 @@ export default function HeroFilters() {
     : null
 
   return (
-    <HStack w={'100%'}>
+    <Flex
+      w={'100%'}
+      flexDirection={{ base: 'column', lg: 'row' }}
+      alignItems={'center'}
+      gap={2}
+    >
       <FormControl flex={'2'}>
         <Select
           name="operationType"
@@ -74,6 +79,6 @@ export default function HeroFilters() {
       <Link href={`/properties${queryString && '?' + queryString}`} flex={'1'}>
         <Button>Search Properties</Button>
       </Link>
-    </HStack>
+    </Flex>
   )
 }

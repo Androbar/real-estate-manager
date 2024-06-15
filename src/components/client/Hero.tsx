@@ -23,11 +23,11 @@ export function Hero() {
       />
       <Box
         position="absolute"
-        top={'80%'}
+        top={{ base: '60%', lg: '80%' }}
         left={'50%'}
         zIndex={10}
         overflow={'visible'}
-        w={'4xl'}
+        w={'80%'}
         transform={'translateX(-50%)'}
       >
         <HeroFilters />

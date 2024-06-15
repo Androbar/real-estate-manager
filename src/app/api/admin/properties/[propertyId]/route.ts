@@ -4,6 +4,7 @@ import { format } from 'date-fns'
 import path from 'path'
 import { mkdirSync } from 'fs'
 import prisma from '@/lib/prismaClient'
+import { getServerSideSession } from '@/hoc/server-auth'
 
 export async function POST(req: NextRequest) {
   const form = await req.formData()
@@ -165,6 +166,30 @@ export async function POST(req: NextRequest) {
     },
   })
   return NextResponse.json({ message: 'Files Created' })
+}
+
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { propertyId: string } },
+) {
+  const session = await getServerSideSession()
+  if (!session) {
+    return NextResponse.json({ message: 'Not authenticated', status: 401 })
+  }
+  const property = await prisma.property.findUnique({
+    where: {
+      id: parseInt(params.propertyId),
+      ownerId: parseInt(session.user.id),
+    },
+  })
+  if (!property) {
+    return NextResponse.json({ message: 'Property not found', status: 404 })
+  }
+  await prisma.property.delete({
+    where: {
+      id: parseInt(params.propertyId),
+    },
+  })
 }
 
 const saveFile = async (file: File) => {

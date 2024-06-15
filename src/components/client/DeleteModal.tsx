@@ -10,7 +10,6 @@ import {
   Text,
 } from '@chakra-ui/react'
 import type { Property } from '@prisma/client'
-import prisma from '@/lib/prismaClient'
 
 interface DeleteModalProps {
   isOpen: boolean
@@ -25,10 +24,8 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
 }: DeleteModalProps) => {
   const handleDelete = async () => {
     if (propertyToDelete) {
-      await prisma.property.delete({
-        where: {
-          id: propertyToDelete.id,
-        },
+      await fetch('/api/admin/properties/' + propertyToDelete.id, {
+        method: 'DELETE',
       })
       onClose()
     }

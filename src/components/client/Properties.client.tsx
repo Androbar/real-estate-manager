@@ -38,7 +38,7 @@ const PropertiesPage = ({
   return (
     <Container maxW="6xl">
       <Grid templateColumns={'repeat(12, 1fr)'} gap={6}>
-        <GridItem colSpan={3}>
+        <GridItem colSpan={{ base: 12, lg: 3 }}>
           <PropertiesFilter
             filterParams={filterParams}
             setFilterParams={setFilterParams}
@@ -47,7 +47,7 @@ const PropertiesPage = ({
             queryString={queryString}
           />
         </GridItem>
-        <GridItem colSpan={9}>
+        <GridItem colSpan={{ base: 12, lg: 9 }}>
           {isLoading && <div>Loading...</div>}
           {isError && <div>An error occurred</div>}
           {!isLoading && !isError && !properties.length && (

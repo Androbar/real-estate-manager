@@ -1,5 +1,5 @@
 import ContactUs from '@/components/client/ContactUs'
-import { Container, Heading, HStack, Text } from '@chakra-ui/react'
+import { Container, Flex, Heading, HStack, Text } from '@chakra-ui/react'
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa'
 
 const ContactPage = () => {
@@ -10,7 +10,12 @@ const ContactPage = () => {
       </Container>
       <ContactUs />
       <Container maxW="6xl" py={6}>
-        <HStack spacing={8} justifyContent={'center'}>
+        <Flex
+          justifyContent={'center'}
+          alignItems={'center'}
+          direction={{ base: 'column', md: 'row' }}
+          gap={4}
+        >
           <HStack>
             <FaPhone size={20} />
             <Text as="a" href="tel:+11234567890">
@@ -27,7 +32,7 @@ const ContactPage = () => {
               contact@example.com
             </Text>
           </HStack>
-        </HStack>
+        </Flex>
       </Container>
       <Container maxW="100%" px={0}>
         <iframe

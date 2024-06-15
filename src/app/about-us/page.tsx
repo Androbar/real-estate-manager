@@ -2,6 +2,7 @@ import {
   Box,
   Container,
   Flex,
+  Grid,
   Heading,
   Image,
   Text,
@@ -25,11 +26,17 @@ const AboutUsPage = () => {
         <Image
           src="https://via.placeholder.com/1980x400?text=Company+Image"
           alt="Company Image"
+          h={{ base: 300, md: 400 }}
         />
       </Flex>
 
       <Container maxW="6xl">
-        <Flex justify="space-around" mb={12}>
+        <Flex
+          justify="space-around"
+          mb={12}
+          direction={{ base: 'column', md: 'row' }}
+          gap={{ base: 4, md: 2 }}
+        >
           <VStack textAlign="center">
             <FaUserFriends size={40} />
             <Heading as="h2" size="md" mb={2}>
@@ -61,10 +68,19 @@ const AboutUsPage = () => {
       </Container>
 
       <Container maxW="6xl" mb={12}>
-        <Heading as="h2" size="xl" mb={6}>
+        <Heading
+          as="h2"
+          size="xl"
+          mb={6}
+          textAlign={{ base: 'center', md: 'left' }}
+        >
           Our Team
         </Heading>
-        <Flex justify="space-between">
+        <Grid
+          gridTemplateColumns={{ base: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }}
+          gridRowGap={6}
+          gridColumnGap={4}
+        >
           <VStack textAlign="center">
             <Image
               src="https://via.placeholder.com/150"
@@ -92,8 +108,6 @@ const AboutUsPage = () => {
             <Text fontWeight="bold">Bob Johnson</Text>
             <Text>CFO</Text>
           </VStack>
-        </Flex>
-        <Flex justify="space-between" mt={6}>
           <VStack textAlign="center">
             <Image
               src="https://via.placeholder.com/150"
@@ -121,7 +135,7 @@ const AboutUsPage = () => {
             <Text fontWeight="bold">Sarah Wilson</Text>
             <Text>HR Manager</Text>
           </VStack>
-        </Flex>
+        </Grid>
       </Container>
     </Box>
   )

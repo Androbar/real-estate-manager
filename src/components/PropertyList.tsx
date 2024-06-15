@@ -15,7 +15,7 @@ export const PropertiesList = ({ properties }: { properties: Property[] }) => {
           (bookmark: BookmarkProperty) => parseInt(bookmark.id) === property.id,
         )
         return (
-          <GridItem key={property.id} colSpan={4}>
+          <GridItem key={property.id} colSpan={{ base: 12, md: 6, lg: 3 }}>
             <PropertyCard
               property={property}
               isBookmarked={isBookmarked}
