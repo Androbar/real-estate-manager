@@ -3,6 +3,7 @@
 import { Box, Modal, ModalContent, ModalOverlay, Image } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { ArrowBackIcon, ArrowForwardIcon, CloseIcon } from '@chakra-ui/icons'
+import type { PropertyImagesWithImage } from '@/types/properties'
 
 export const ImageGallery = ({
   images,
@@ -67,14 +68,14 @@ export const ImageGallery = ({
           {images.map((image, idx) => (
             <Box
               position="relative"
-              key={image.id}
+              key={image.image.id}
               boxSize="100%"
               overflow={'hidden'}
               display={'grid'}
             >
               <Image
-                alt={image.caption}
-                src={image.url}
+                alt={image.image.caption || ''}
+                src={image.image.url}
                 objectFit={'cover'}
                 justifySelf={'center'}
                 alignSelf={'center'}
@@ -119,16 +120,8 @@ export const ImageGallery = ({
 }
 
 export interface ImageGalleryProps {
-  images: TImage[]
+  images: PropertyImagesWithImage[]
   isOpen: boolean
   onClose: () => void
   transitionDuration?: number
-}
-
-export type TImage = {
-  id: number
-  filename: string
-  url: string
-  caption: string
-  order: number
 }

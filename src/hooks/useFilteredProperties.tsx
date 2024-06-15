@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useProperties } from '@/hooks/useProperties'
-import type { FilterParams } from '@/types/properties'
+import type { FilterParams, PropertyWithImages } from '@/types/properties'
 
 export const usePropertiesFilterParams = (initialParams?: FilterParams) => {
   const [filterParams, setFilterParams] = useState<FilterParams>(
@@ -36,7 +36,7 @@ export const usePropertiesFilterParams = (initialParams?: FilterParams) => {
     filterParams,
     setFilterParams: handleSetFilterParams,
     queryString,
-    properties: data?.data,
+    properties: data?.data as PropertyWithImages[],
     isLoading,
     isError,
   }

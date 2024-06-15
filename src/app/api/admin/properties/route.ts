@@ -7,11 +7,11 @@ import fs from 'fs'
 import { getServerSideSession } from '@/hoc/server-auth'
 
 export async function POST(req: NextRequest) {
-  const form = await req.formData()
   const session = await getServerSideSession()
   if (!session) {
     return NextResponse.redirect('/404')
   }
+  const form = await req.formData()
   const ownerId = parseInt(session.user.id)
   // I have to prepare the data for update the property and the files at the same times
   const property = JSON.parse(form.get('body') as string)

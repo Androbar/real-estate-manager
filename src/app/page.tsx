@@ -13,6 +13,13 @@ export default async function Home() {
     orderBy: {
       createdAt: 'desc',
     },
+    include: {
+      propertyImages: {
+        include: {
+          image: true,
+        },
+      },
+    },
   })
   return (
     <main className={styles.main}>

@@ -104,6 +104,7 @@ export const properties = [
     orientation: 'N/A',
     carport: 0,
   },
+  // llege aca
   {
     name: 'Riverfront Apartment',
     slug: 'riverfront-apartment',

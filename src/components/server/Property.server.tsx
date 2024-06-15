@@ -1,6 +1,6 @@
 import { ContactForm } from '@/components/ContactForm'
 import { PropertyImages } from '@/components/PropertyImages'
-import { MAX_WIDTH, PROPERTY_IMAGES, PROPERTY_TYPES } from '@/constants'
+import { MAX_WIDTH, PROPERTY_TYPES } from '@/constants'
 import prisma from '@/lib/prismaClient'
 import {
   Box,
@@ -39,20 +39,29 @@ const PropertyMap = dynamic(
 const PropertyServerComponent = async ({ slug }: { slug: string }) => {
   const property = await prisma.property.findUnique({
     where: { slug },
+    include: {
+      propertyImages: {
+        include: {
+          image: true,
+        },
+      },
+    },
   })
 
   if (!property) {
     return <div>Property not found</div>
   }
-  const location = property.location ? property.location.split(':') : null
-  const latitude = location ? parseFloat(location[0]) : null
-  const longitude = location ? parseFloat(location[1]) : null
+  // const location = property.location ? property.location.split(':') : null
+  // const latitude = location ? parseFloat(location[0]) : null
+  // const longitude = location ? parseFloat(location[1]) : null
+  const latitude = property.latitude ? parseFloat(property.latitude) : null
+  const longitude = property.longitude ? parseFloat(property.longitude) : null
   return (
     <Container maxW={MAX_WIDTH} p={4} m={'0 auto'}>
       <Grid templateColumns="repeat(12, 1fr)" gap={6}>
         <GridItem colSpan={8}>
           <Box w={'100%'}>
-            <PropertyImages images={PROPERTY_IMAGES} />
+            <PropertyImages images={property.propertyImages} />
             <HStack justifyContent={'space-between'} alignItems={'stretch'}>
               <VStack gap={0}>
                 <Heading as="h1" mt={5}>

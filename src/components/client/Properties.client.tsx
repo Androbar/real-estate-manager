@@ -4,9 +4,8 @@ import { PropertiesFilter } from '@/components/PropertiesFilter'
 import { PropertiesList } from '@/components/PropertyList'
 import { Container, Grid, GridItem } from '@chakra-ui/react'
 import { PropertyListMap } from '../PropertyListMap'
-import type { Property } from '@prisma/client'
 import { usePropertiesFilterParams } from '@/hooks/useFilteredProperties'
-import type { SearchParams } from '@/types/properties'
+import type { PropertyWithImages, SearchParams } from '@/types/properties'
 
 const PropertiesPage = ({
   maxPrice = 1000000,
@@ -67,7 +66,7 @@ const ListMapSwitcher = ({
   properties,
 }: {
   isMapView: boolean
-  properties: Property[]
+  properties: PropertyWithImages[]
 }) => {
   if (isMapView) {
     return <PropertyListMap properties={properties} />

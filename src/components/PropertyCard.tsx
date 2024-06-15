@@ -1,5 +1,5 @@
-import { OPERATION_TYPES, PROPERTY_IMAGES, PROPERTY_TYPES } from '@/constants'
-import type { BookmarkProperty } from '@/types/properties'
+import { OPERATION_TYPES, PROPERTY_TYPES } from '@/constants'
+import type { BookmarkProperty, PropertyWithImages } from '@/types/properties'
 import { formatNumber } from '@/utils/utils'
 import {
   Card,
@@ -17,7 +17,6 @@ import {
   Tooltip,
 } from '@chakra-ui/react'
 import { FaBookmark, FaRegBookmark } from 'react-icons/fa'
-import type { Property } from '@prisma/client'
 
 export const PropertyCard = ({
   property,
@@ -26,13 +25,13 @@ export const PropertyCard = ({
   addBookMark,
   removeBookMark,
 }: {
-  property: Property
+  property: PropertyWithImages
   doubleSize?: boolean
   isBookmarked?: boolean
   addBookMark?: (item: BookmarkProperty) => void
   removeBookMark?: (id: string) => void
 }) => {
-  const image = PROPERTY_IMAGES[0]
+  const image = property.propertyImages?.[0]?.image
   return (
     <Link
       href={`/properties/${property.slug}`}
@@ -49,8 +48,8 @@ export const PropertyCard = ({
         <CardBody p={0}>
           <Box position={'relative'}>
             <Image
-              alt={image.caption}
-              src={image.url}
+              alt={image?.caption || 'Property Image'}
+              src={image?.url}
               w={'100%'}
               h={doubleSize ? '600px' : '200px'}
               objectFit={'cover'}

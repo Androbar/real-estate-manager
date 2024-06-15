@@ -81,9 +81,13 @@ TRPC?
 - [ ] Add 20 properties 5 images per property 5*20 100images
       donwload 100 images                 - done
       ask chatgpt to create the data      - done
-      load it                             - 
+      load it                             - (5)
       all in salta, 10 7 3 per user       - 
-- [ ] Use actual uploaded images for properties (if no images, load default)
+- [ x ] Add session route protection on backend
+- [ x ] Use actual uploaded images for properties (if no images, load default)
+- [ x ] Use long and lat instead of location for map
 - [ ] Add metadata
 - [ ] Fix js console errors
+- [ ] Fix image order, also add a drag and drop
+- [ ] On create property show success message and then redirect after 5 seconds
 

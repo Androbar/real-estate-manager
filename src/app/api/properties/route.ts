@@ -57,6 +57,13 @@ export async function GET(request: NextRequest) {
       ...(rooms && { rooms: parseInt(rooms) }),
       ...(bathrooms && { bathrooms: parseInt(bathrooms) }),
     },
+    include: {
+      propertyImages: {
+        include: {
+          image: true,
+        },
+      },
+    },
   })
 
   return Response.json({ data })

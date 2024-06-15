@@ -7,6 +7,10 @@ import prisma from '@/lib/prismaClient'
 import { getServerSideSession } from '@/hoc/server-auth'
 
 export async function POST(req: NextRequest) {
+  const session = await getServerSideSession()
+  if (!session) {
+    return NextResponse.redirect('/404')
+  }
   const form = await req.formData()
 
   // I have to prepare the data for update the property and the files at the same times
@@ -100,6 +104,7 @@ export async function POST(req: NextRequest) {
   await prisma.property.update({
     where: {
       id: property.id,
+      ownerId: parseInt(session.user.id),
     },
     data: {
       name,

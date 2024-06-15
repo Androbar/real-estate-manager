@@ -1,4 +1,4 @@
-import type { Property, Contact } from '@prisma/client'
+import type { Property, Contact, PropertyImages, Image } from '@prisma/client'
 
 export type FilterParams = {
   priceMin?: string
@@ -22,6 +22,14 @@ export type SelectOption = {
 
 export interface PropertyWithContacts extends Property {
   contacts: Contact[]
+}
+
+export interface PropertyImagesWithImage extends PropertyImages {
+  image: Image
+}
+
+export interface PropertyWithImages extends Property {
+  propertyImages: PropertyImagesWithImage[]
 }
 
 export interface BookmarkProperty {

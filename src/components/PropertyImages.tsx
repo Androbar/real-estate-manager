@@ -2,17 +2,12 @@
 
 import { Box, Grid, GridItem, useDisclosure, Image } from '@chakra-ui/react'
 import { ImageGallery } from './ImageGallery'
+import type { PropertyImagesWithImage } from '@/types/properties'
 
 export const PropertyImages = ({
   images,
 }: {
-  images: Array<{
-    id: number
-    filename: string
-    url: string
-    caption: string
-    order: number
-  }>
+  images: PropertyImagesWithImage[]
 }) => {
   const shownImages = images.slice(0, 3).sort((a, b) => a.order - b.order)
   const firstImage = shownImages.shift()
@@ -42,14 +37,14 @@ export const PropertyImages = ({
             alignItems={'center'}
           >
             <Image
-              alt={firstImage?.caption}
-              src={firstImage?.url}
+              alt={firstImage?.image.caption || ''}
+              src={firstImage?.image.url}
               objectFit={'cover'}
             />
           </Box>
         </GridItem>
         {shownImages.map(image => (
-          <GridItem colSpan={1} rowSpan={1} key={image.id}>
+          <GridItem colSpan={1} rowSpan={1} key={image.image.id}>
             <Box
               position="relative"
               boxSize="100%"
@@ -58,7 +53,11 @@ export const PropertyImages = ({
               justifyContent={'center'}
               alignItems={'center'}
             >
-              <Image alt={image.caption} src={image.url} objectFit={'cover'} />
+              <Image
+                alt={image.image.caption || ''}
+                src={image.image.url}
+                objectFit={'cover'}
+              />
             </Box>
           </GridItem>
         ))}
