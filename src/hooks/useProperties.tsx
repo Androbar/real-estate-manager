@@ -9,7 +9,7 @@ type QueryParams = Record<string, string>
 const fetchProperties = async ({
   queryKey,
 }: QueryFunctionContext<[string, { queryParams?: QueryParams }]>) => {
-  const [_key, { queryParams }] = queryKey
+  const [, { queryParams }] = queryKey
 
   // Construct the query string from queryParams if it exists
   const queryString = queryParams

@@ -47,7 +47,7 @@ type CombinedProperty = {
   propertyImages: PropertyImagesWithImage[]
 } & Property
 
-type CombinedPropertyWithOptionalId = Omit<CombinedProperty, 'id'> & {
+export type CombinedPropertyWithOptionalId = Omit<CombinedProperty, 'id'> & {
   id?: number
 }
 
@@ -55,7 +55,9 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const toast = useToast()
-  const methods = useForm({ defaultValues: property || defaultValues })
+  const methods = useForm<CombinedProperty>({
+    defaultValues: property || defaultValues,
+  })
   const {
     register,
     handleSubmit,

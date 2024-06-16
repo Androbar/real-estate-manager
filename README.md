@@ -88,7 +88,7 @@ TRPC?
 - [ x ] Use long and lat instead of location for map
 - [ x ] Fix js console errors
 - [ x ] Fix image order generation
-- [ ] Fix build errors
+- [ x ] Fix build errors
 - [ ] Add metadata
 - [ ] On create property show success message and then redirect after 5 seconds
 

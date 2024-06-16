@@ -1,3 +1,5 @@
+// import type { CombinedPropertyWithOptionalId } from '@/components/client/EditPropertyForm.client'
+
 export const defaultValues = {
   name: 'Downtown Office Space',
   slug: 'downtown-office-space',

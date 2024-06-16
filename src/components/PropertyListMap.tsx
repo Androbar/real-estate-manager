@@ -1,11 +1,15 @@
 'use client'
 
 import { Box } from '@chakra-ui/react'
-import type { Property } from '@prisma/client'
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 import { PropertyCard } from './PropertyCard'
+import type { PropertyWithImages } from '@/types/properties'
 
-export const PropertyListMap = ({ properties }: { properties: Property[] }) => {
+export const PropertyListMap = ({
+  properties,
+}: {
+  properties: PropertyWithImages[]
+}) => {
   return (
     <Box h={'100%'}>
       <MapContainer
