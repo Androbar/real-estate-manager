@@ -89,6 +89,7 @@ TRPC?
 - [ x ] Fix js console errors
 - [ x ] Fix image order generation
 - [ x ] Fix build errors
+- [ x ] Disable signup and login with 3rd party with env variable
 - [ ] Add metadata
 - [ ] On create property show success message and then redirect after 5 seconds
 

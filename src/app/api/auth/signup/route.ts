@@ -4,6 +4,9 @@ import prisma from '@/lib/prismaClient'
 import bcrypt from 'bcryptjs'
 
 export async function POST(request: NextRequest) {
+  if (process.env.SIGNUP_ENABLED !== 'true') {
+    return NextResponse.json({ error: 'Signup is disabled' }, { status: 403 })
+  }
   try {
     const body: {
       email: string
