@@ -60,16 +60,25 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
     register,
     handleSubmit,
     control,
+    watch,
     formState: { errors },
   } = methods
   const propertyImages = useFieldArray({
     control,
     name: 'propertyImages',
   })
+  const watchedImages = watch('propertyImages')
 
-  const maxImageOrder = propertyImages?.fields.length
-    ? propertyImages.fields[0].order
-    : 0
+  const getMaxImageOrder = () => {
+    if (!watchedImages) return 0
+
+    const maxCurrentOrder =
+      watchedImages.length > 0
+        ? Math.max(...watchedImages.map(img => img.order))
+        : 0
+    return maxCurrentOrder
+  }
+  const maxImageOrder = getMaxImageOrder()
 
   const onSubmit = async (data: CombinedPropertyWithOptionalId) => {
     console.log('submitting')
@@ -123,23 +132,6 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
       setIsSubmitting(false)
     }
   }
-
-  // const onSubmita = async (data: Property) => {
-  //   // create endpoint to update property, hook from react query
-  //   // FETCH TO /admin/properties/propertyid
-  //   const url = `/api/admin/properties/${data.id}`
-  //   const test = await fetch(url, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(data),
-  //   })
-  //   console.log(test)
-  //   // create endpoint to create property
-  // }
-  // // TODO: replace console log
-  // console.log(onSubmita)
 
   const handleAddImageClick = () => {
     propertyImages.append({

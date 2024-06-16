@@ -87,7 +87,7 @@ TRPC?
 - [ x ] Use actual uploaded images for properties (if no images, load default)
 - [ x ] Use long and lat instead of location for map
 - [ x ] Fix js console errors
-- [ ] Fix image order generation
+- [ x ] Fix image order generation
 - [ ] Fix build errors
 - [ ] Add metadata
 - [ ] On create property show success message and then redirect after 5 seconds
