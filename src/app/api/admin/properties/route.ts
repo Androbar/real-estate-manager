@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
     floodZoneType,
     propertyImages,
   } = property
-  console.log(property)
+
   const slug = await generateUniqueSlug(name as string)
 
   const newProperty = await prisma.property.create({
@@ -167,7 +167,6 @@ export async function POST(req: NextRequest) {
         },
       })
       propertyImagesIds.push(image.id)
-      console.log('image.filename', image.filename)
     }
   }
 

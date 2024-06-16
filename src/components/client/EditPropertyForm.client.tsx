@@ -81,11 +81,9 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
   const maxImageOrder = getMaxImageOrder()
 
   const onSubmit = async (data: CombinedPropertyWithOptionalId) => {
-    console.log('submitting')
     setIsSubmitting(true)
     const formData = new FormData()
-    // NOTE: here I have to loop property images, and set a way to link property images
-    // to the uploaded file urls.
+
     if (data.propertyImages) {
       const files = data.propertyImages
         .map(item => (item.image.file ? item.image.file[0] : null))
@@ -101,13 +99,11 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
       : '/api/admin/properties'
 
     try {
-      console.log('sending request')
-
       const response = await fetch(url, {
         method: 'POST',
         body: formData,
       })
-      console.log('response:', response)
+
       if (response.ok) {
         toast({
           title: 'Property saved.',
@@ -120,7 +116,6 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
         throw new Error('Failed to save property')
       }
     } catch (error) {
-      console.log(error)
       toast({
         title: 'Property not saved.',
         description: 'The property was not saved.',
@@ -149,12 +144,6 @@ export const PropertyForm = ({ property }: { property?: CombinedProperty }) => {
   const handleCancelImageClick = (index: number) => {
     propertyImages.remove(index)
   }
-
-  // useEffect(() => {
-  //   propertyImages.fields.forEach(item => {
-  //     console.log(item.image)
-  //   })
-  // }, [propertyImages])
 
   return (
     <FormProvider {...methods}>
@@ -479,13 +468,7 @@ const PropertyImageForm = ({
 
   const imageUrl = watch(`propertyImages.${index}.image.url`)
   const imageThumbnail = imageUrl || thumbnail
-  // console.log(errors.propertyImages)
-  // const fileProps = {
-  //   ...register(`propertyImages.${index}.image.file`, {
-  //     required: 'Please select a file',
-  //   }),
-  // }
-  // console.log('fileProps', fileProps)
+
   return (
     <>
       <Grid w="100%" h="100%" gap={2} gridTemplateColumns={'repeat(12, 1fr)'}>

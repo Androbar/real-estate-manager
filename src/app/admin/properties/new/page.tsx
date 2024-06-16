@@ -8,7 +8,7 @@ export default async function Page() {
   if (!session) {
     return { redirect: '/404' } // Redirect to 404 if no session
   }
-  console.log('session?.user', session?.user)
+
   return (
     <Container maxW="6xl">
       <PropertyForm />

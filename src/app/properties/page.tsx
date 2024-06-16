@@ -5,7 +5,6 @@ const Properties = ({
 }: {
   searchParams?: Record<string, string | string[] | undefined>
 }) => {
-  console.log('searchParams: ', searchParams)
   return <PropertiesServer searchParams={searchParams} />
 }
 

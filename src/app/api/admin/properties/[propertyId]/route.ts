@@ -85,7 +85,7 @@ export async function POST(req: NextRequest) {
       const file = files[i]
       const filePath = await saveFile(file)
 
-      const image = await prisma.image.create({
+      await prisma.image.create({
         data: {
           filename: file.name,
           url: filePath,
@@ -98,7 +98,6 @@ export async function POST(req: NextRequest) {
           },
         },
       })
-      console.log('image.filename', image.filename)
     }
   }
   await prisma.property.update({
