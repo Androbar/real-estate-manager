@@ -29,6 +29,7 @@ export function Hero() {
         overflow={'visible'}
         w={'80%'}
         transform={'translateX(-50%)'}
+        maxW={'6xl'}
       >
         <HeroFilters />
       </Box>
