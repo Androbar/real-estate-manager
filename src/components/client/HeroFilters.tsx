@@ -56,6 +56,7 @@ export default function HeroFilters() {
     >
       <FormControl flex={'2'}>
         <Select
+          instanceId="operation-type"
           name="operationType"
           value={operationTypeValue}
           placeholder="Select Operation Type"
@@ -67,6 +68,7 @@ export default function HeroFilters() {
       </FormControl>
       <FormControl flex={'2'}>
         <Select
+          instanceId="property-type"
           name="propertyType"
           value={propertyTypeValue}
           placeholder="Select Property Type"

@@ -86,8 +86,9 @@ TRPC?
 - [ x ] Add session route protection on backend
 - [ x ] Use actual uploaded images for properties (if no images, load default)
 - [ x ] Use long and lat instead of location for map
+- [ x ] Fix js console errors
+- [ ] Fix image order generation
+- [ ] Fix build errors
 - [ ] Add metadata
-- [ ] Fix js console errors
-- [ ] Fix image order, also add a drag and drop
 - [ ] On create property show success message and then redirect after 5 seconds
 
