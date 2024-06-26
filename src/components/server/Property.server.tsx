@@ -59,7 +59,7 @@ const PropertyServerComponent = async ({ slug }: { slug: string }) => {
   return (
     <Container maxW={MAX_WIDTH} p={4} m={'0 auto'}>
       <Grid templateColumns="repeat(12, 1fr)" gap={6}>
-        <GridItem colSpan={8}>
+        <GridItem colSpan={{ base: 12, lg: 8 }}>
           <Box w={'100%'}>
             <PropertyImages images={property.propertyImages} />
             <HStack justifyContent={'space-between'} alignItems={'stretch'}>
@@ -85,26 +85,54 @@ const PropertyServerComponent = async ({ slug }: { slug: string }) => {
               </VStack>
             </HStack>
             <Divider my={5} />
-            <HStack gap={5}>
-              <HStack>
-                <RxDimensions size={25} /> <Text>{property.areaTotal}m2</Text>
+            <HStack gap={{ base: 2, md: 5 }}>
+              <HStack gap={{ base: 1, md: 2 }}>
+                <Box h={{ base: '15px', md: '25px' }} minW={'15px'}>
+                  <RxDimensions size={'100%'} />
+                </Box>{' '}
+                <Text fontSize={{ base: 'xs', md: 'md' }}>
+                  {property.areaTotal}m2
+                </Text>
               </HStack>
-              <HStack>
-                <MdOutlineMeetingRoom size={25} />{' '}
-                <Text>{property.roomsTotal}</Text>
+              <HStack gap={{ base: 1, md: 2 }}>
+                <Box h={{ base: '15px', md: '25px' }} minW={'15px'}>
+                  <MdOutlineMeetingRoom size={'100%'} />
+                </Box>{' '}
+                <Text fontSize={{ base: 'xs', md: 'md' }}>
+                  {property.roomsTotal}
+                </Text>
               </HStack>
-              <HStack>
-                <FaShower size={25} /> <Text>{property.bathrooms}</Text>
+              <HStack gap={{ base: 1, md: 2 }}>
+                <Box h={{ base: '15px', md: '25px' }} minW={'15px'}>
+                  <FaShower size={'100%'} />
+                </Box>{' '}
+                <Text fontSize={{ base: 'xs', md: 'md' }}>
+                  {property.bathrooms}
+                </Text>
               </HStack>
-              <HStack>
-                <MdOutlineBed size={25} /> <Text>{property.rooms}</Text>
+              <HStack gap={{ base: 1, md: 2 }}>
+                <Box h={{ base: '15px', md: '25px' }} minW={'15px'}>
+                  <MdOutlineBed size={'100%'} />
+                </Box>{' '}
+                <Text fontSize={{ base: 'xs', md: 'md' }}>
+                  {property.rooms}
+                </Text>
               </HStack>
-              <HStack>
-                <BiSolidCarGarage size={25} /> <Text>{property.carport}</Text>
+              <HStack gap={{ base: 1, md: 2 }}>
+                <Box h={{ base: '15px', md: '25px' }} minW={'15px'}>
+                  <BiSolidCarGarage size={'100%'} />
+                </Box>{' '}
+                <Text fontSize={{ base: 'xs', md: 'md' }}>
+                  {property.carport}
+                </Text>
               </HStack>
-              <HStack>
-                <CiCalendar size={25} />{' '}
-                <Text>{property.yearsBuilt} Years</Text>
+              <HStack gap={{ base: 1, md: 2 }}>
+                <Box h={{ base: '15px', md: '25px' }} minW={'15px'}>
+                  <CiCalendar size={'100%'} />
+                </Box>{' '}
+                <Text fontSize={{ base: 'xs', md: 'md' }}>
+                  {property.yearsBuilt} Years
+                </Text>
               </HStack>
             </HStack>
             <Divider my={5} />
@@ -135,7 +163,7 @@ const PropertyServerComponent = async ({ slug }: { slug: string }) => {
             </Tabs>
           </Box>
         </GridItem>
-        <GridItem colSpan={4}>
+        <GridItem colSpan={{ base: 12, lg: 4 }}>
           <ContactForm propertyId={property.id} />
         </GridItem>
       </Grid>

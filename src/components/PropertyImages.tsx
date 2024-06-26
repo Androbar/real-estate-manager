@@ -40,6 +40,10 @@ export const PropertyImages = ({
               alt={firstImage?.image.caption || ''}
               src={firstImage?.image.url}
               objectFit={'cover'}
+              sx={{
+                height: '100%',
+                width: '100%',
+              }}
             />
           </Box>
         </GridItem>
@@ -57,6 +61,10 @@ export const PropertyImages = ({
                 alt={image.image.caption || ''}
                 src={image.image.url}
                 objectFit={'cover'}
+                sx={{
+                  height: '100%',
+                  width: '100%',
+                }}
               />
             </Box>
           </GridItem>

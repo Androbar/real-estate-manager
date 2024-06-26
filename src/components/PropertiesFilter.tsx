@@ -94,15 +94,20 @@ export const PropertiesFilter = ({
     }
   }, [debouncedSetFilterParams])
 
+  const responsiveSize = {
+    base: 'sm',
+    md: 'md',
+  }
+
   return (
     <Card>
       <CardHeader>
         <Heading size="sm">Filter Properties</Heading>
       </CardHeader>
       <CardBody>
-        <Box>
+        <Box fontSize={'sm'}>
           <FormControl>
-            <FormLabel>Operation Type</FormLabel>
+            <FormLabel fontSize={responsiveSize}>Operation Type</FormLabel>
             <Select
               name="operationType"
               value={{
@@ -117,7 +122,7 @@ export const PropertiesFilter = ({
             />
           </FormControl>
           <FormControl>
-            <FormLabel>Property Type</FormLabel>
+            <FormLabel fontSize={responsiveSize}>Property Type</FormLabel>
             <Select
               name="propertyType"
               value={{
@@ -132,7 +137,7 @@ export const PropertiesFilter = ({
             />
           </FormControl>
           <FormControl>
-            <FormLabel>Price Range</FormLabel>
+            <FormLabel fontSize={responsiveSize}>Price Range</FormLabel>
             <Box display="flex" justifyContent="space-between">
               <Box>
                 <Text>Min Price</Text>
@@ -143,6 +148,7 @@ export const PropertiesFilter = ({
                   onChange={valueString => {
                     handleMinPriceChange(valueString)
                   }}
+                  size={'sm'}
                 >
                   <NumberInputField fontSize={'sm'} />
                 </NumberInput>
@@ -156,6 +162,7 @@ export const PropertiesFilter = ({
                   onChange={valueString => {
                     handleMaxPriceChange(valueString)
                   }}
+                  size={'sm'}
                 >
                   <NumberInputField fontSize={'sm'} />
                 </NumberInput>
@@ -163,7 +170,7 @@ export const PropertiesFilter = ({
             </Box>
           </FormControl>
           <FormControl>
-            <FormLabel>Size Range</FormLabel>
+            <FormLabel fontSize={responsiveSize}>Size Range</FormLabel>
             <Box position={'relative'} pt={5}>
               <RangeSlider
                 aria-label={['min', 'max']}
@@ -172,6 +179,7 @@ export const PropertiesFilter = ({
                 min={0}
                 max={maxSize}
                 onChange={handleSizeRangeChange}
+                size={'sm'}
               >
                 <RangeSliderTrack>
                   <RangeSliderFilledTrack />
@@ -188,19 +196,21 @@ export const PropertiesFilter = ({
             </Box>
           </FormControl>
           <FormControl>
-            <FormLabel>Bedrooms</FormLabel>
+            <FormLabel fontSize={responsiveSize}>Bedrooms</FormLabel>
             <Input
               name="rooms"
               value={filterParams.rooms}
               onChange={handleFilterChange}
+              size={'sm'}
             />
           </FormControl>
           <FormControl>
-            <FormLabel>Bathrooms</FormLabel>
+            <FormLabel fontSize={responsiveSize}>Bathrooms</FormLabel>
             <Input
               name="bathrooms"
               value={filterParams.bathrooms}
               onChange={handleFilterChange}
+              size={'sm'}
             />
           </FormControl>
           {/* <input name="priceMin" value={filterParams.priceMin} onChange={handleFilterChange} />

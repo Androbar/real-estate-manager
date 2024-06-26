@@ -32,7 +32,7 @@ function NewsletterFooter() {
   }
 
   return (
-    <Box bg="gray.800" p={16}>
+    <Box bg="gray.800" py={16} px={{ base: 0, md: 16 }}>
       <Container maxW={'6xl'} color={'gray.300'}>
         <Flex
           align={'flex-start'}
@@ -55,7 +55,7 @@ function NewsletterFooter() {
               and be the first to know about what&apos;s coming next.
             </Text>
           </VStack>
-          <VStack flex={'1'} pt={10} width={'100%'}>
+          <VStack flex={'1'} pt={{ base: 0, md: 10 }} width={'100%'}>
             <Input
               placeholder={'Your email address'}
               value={email}
